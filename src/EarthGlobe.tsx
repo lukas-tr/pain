@@ -24,8 +24,9 @@ function EquirectBackground({ src }: { src: string }) {
 function Earth() {
     const earthRef = useRef<THREE.Mesh>(null!);
     const cloudsRef = useRef<THREE.Mesh>(null!);
-    const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
-    const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
+    // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
+    const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
+    // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
     const clouds = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_clouds.jpg");
     const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
 
