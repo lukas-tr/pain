@@ -1,7 +1,7 @@
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // texture source: https://www.solarsystemscope.com/textures/
 
@@ -20,6 +20,44 @@ function EquirectBackground({ src }: { src: string }) {
     return null;
 }
 
+function SoundSourceSphere(props: { position: [number, number, number] }) {
+    // This reference will give us direct access to the mesh
+    const meshRef = useRef<THREE.Mesh>(null!);
+    // Set up state for the hovered and active state
+    const [hovered, setHover] = useState(false)
+    //   const [active, setActive] = useState(false)
+    // Subscribe this component to the render-loop, rotate the mesh every frame
+    useFrame((state, delta) => {
+        meshRef.current.rotation.x += delta;
+        const material = meshRef.current.material as THREE.MeshStandardMaterial;
+        material.opacity -= delta * 0.08;
+        meshRef.current.scale.addScalar(delta * 0.1);
+    })
+    // Return view, these are regular three.js elements expressed in JSX
+    return (
+        <mesh
+            {...props}
+            ref={meshRef}
+            //   scale={active ? 1.5 : 1}
+            scale={0.001}
+            //   onClick={(event) => setActive(!active)}
+            onPointerOver={(event) => setHover(true)}
+            onPointerOut={(event) => setHover(false)}>
+            <sphereGeometry args={[1, 32, 32]} />
+            <meshStandardMaterial
+
+                color="#0af402"
+                transparent
+                opacity={0.2}
+                side={THREE.FrontSide}
+                blending={THREE.AdditiveBlending}
+
+            // transparent color={hovered ? 'hotpink' : 'orange'} 
+            />
+        </mesh>
+    )
+}
+
 
 function Earth() {
     const earthRef = useRef<THREE.Mesh>(null!);
@@ -30,6 +68,10 @@ function Earth() {
     // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
     const clouds = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_clouds.jpg");
     const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
+    const soundSourceSphereKey = useRef(0);
+
+    // Store box positions as array of { position: [x, y, z] }
+    const [boxes, setBoxes] = useState<{ position: [number, number, number] }[]>([]);
 
     useEffect(() => {
         [day, clouds].forEach(t => {
@@ -44,17 +86,25 @@ function Earth() {
         });
     }, [day, clouds, height]);
 
-
     useFrame((_, delta) => {
-        // earthRef.current.rotation.y += delta * 0.025;
-        // cloudsRef.current.rotation.y += delta * 0.05;
         grp.current.rotation.y += delta * 0.03;
     });
+
+    function handleEarthClick(event: ThreeEvent<MouseEvent>) {
+        const localPoint = grp.current.worldToLocal(event.point);
+
+        const len = Math.sqrt(localPoint.x * localPoint.x + localPoint.y * localPoint.y + localPoint.z * localPoint.z);
+        const scale = 1.02 / len; // normalize to just above surface
+        const pos: [number, number, number] = [localPoint.x * scale, localPoint.y * scale, localPoint.z * scale];
+        // setBoxes(prev => [...prev, { position: pos }]);
+        setBoxes(prev => [{ position: pos }]);
+        soundSourceSphereKey.current += 1;
+    }
 
     return (
         <group ref={grp}>
             {/* Globe */}
-            <mesh ref={earthRef}>
+            <mesh ref={earthRef} onClick={handleEarthClick}>
                 <sphereGeometry args={[1, 512, 512]} />
                 <meshStandardMaterial map={day}
                     displacementMap={height}
@@ -63,11 +113,10 @@ function Earth() {
                 />
             </mesh>
 
-            {/* Night lights overlay (additive blend) */}
-            {/* <mesh>
-        <sphereGeometry args={[1.001, 64, 64]} />
-        <meshBasicMaterial map={night} blending={THREE.AdditiveBlending} transparent />
-      </mesh> */}
+            {/* Spawned Boxes */}
+            {boxes.map((box, i) => (
+                <SoundSourceSphere key={i + soundSourceSphereKey.current} position={box.position} />
+            ))}
 
             {/* Clouds */}
             <mesh ref={cloudsRef}>
