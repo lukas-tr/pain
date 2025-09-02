@@ -23,6 +23,7 @@ function EquirectBackground({ src }: { src: string }) {
 
 function Earth() {
     const earthRef = useRef<THREE.Mesh>(null!);
+    const grp = useRef<THREE.Group>(null!);
     const cloudsRef = useRef<THREE.Mesh>(null!);
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
     const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
@@ -31,7 +32,7 @@ function Earth() {
     const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
 
     useEffect(() => {
-        [day, night, clouds].forEach(t => {
+        [day, clouds].forEach(t => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = 8;
         });
@@ -41,16 +42,17 @@ function Earth() {
             t.anisotropy = 8;
             t.wrapS = t.wrapT = THREE.RepeatWrapping;
         });
-    }, [day, night, clouds, height]);
+    }, [day, clouds, height]);
 
 
     useFrame((_, delta) => {
-        earthRef.current.rotation.y += delta * 0.025;
-        cloudsRef.current.rotation.y += delta * 0.05;
+        // earthRef.current.rotation.y += delta * 0.025;
+        // cloudsRef.current.rotation.y += delta * 0.05;
+        grp.current.rotation.y += delta * 0.03;
     });
 
     return (
-        <group>
+        <group ref={grp}>
             {/* Globe */}
             <mesh ref={earthRef}>
                 <sphereGeometry args={[1, 512, 512]} />
@@ -99,12 +101,12 @@ export default function EarthScene() {
         key.current = Math.random(); // needed to force remount during hmr
     }, [])
     return (
-        <Canvas style={{ width: "90vw", height: "90vh" }} camera={{ fov: 25, position: [4.5, 2, 3] }}>
+        <Canvas style={{ width: "100vw", height: "90vh" }} camera={{ fov: 25, position: [4.5, 2, 3] }}>
             <EquirectBackground src="/textures/planets/8k_stars_milky_way.jpg" />
             {/* <color attach="background" args={["#000"]} /> */}
             <ambientLight intensity={2} />
-            <directionalLight color="#ffdc6aff" intensity={5} position={[0, 0, 3]} />
-            <OrbitControls enableDamping minDistance={0.1} maxDistance={50} />
+            <directionalLight color="#fff" intensity={5} position={[0, 0, 3]} />
+            <OrbitControls enablePan={false} enableDamping dampingFactor={0.02} minDistance={2} maxDistance={8} />
             <Earth />
         </Canvas>
     );
