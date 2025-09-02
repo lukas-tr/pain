@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // texture source: https://www.solarsystemscope.com/textures/
 
@@ -24,10 +24,10 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
     // This reference will give us direct access to the mesh
     const meshRef = useRef<THREE.Mesh>(null!);
     // Set up state for the hovered and active state
-    const [hovered, setHover] = useState(false)
+    // const [hovered, setHover] = useState(false)
     //   const [active, setActive] = useState(false)
     // Subscribe this component to the render-loop, rotate the mesh every frame
-    useFrame((state, delta) => {
+    useFrame((_, delta) => {
         meshRef.current.rotation.x += delta;
         const material = meshRef.current.material as THREE.MeshStandardMaterial;
         material.opacity -= delta * 0.08;
@@ -40,9 +40,10 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
             ref={meshRef}
             //   scale={active ? 1.5 : 1}
             scale={0.001}
-            //   onClick={(event) => setActive(!active)}
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}>
+        //   onClick={(event) => setActive(!active)}
+        // onPointerOver={() => setHover(true)}
+        // onPointerOut={() => setHover(false)}
+        >
             <sphereGeometry args={[1, 32, 32]} />
             <meshStandardMaterial
 
@@ -97,7 +98,7 @@ function Earth() {
         const scale = 1.02 / len; // normalize to just above surface
         const pos: [number, number, number] = [localPoint.x * scale, localPoint.y * scale, localPoint.z * scale];
         // setBoxes(prev => [...prev, { position: pos }]);
-        setBoxes(prev => [{ position: pos }]);
+        setBoxes(() => [{ position: pos }]);
         soundSourceSphereKey.current += 1;
     }
 

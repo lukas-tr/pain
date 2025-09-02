@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
-import { Canvas, useFrame } from '@react-three/fiber'
+// import { Canvas, useFrame } from '@react-three/fiber'
 import EarthGlobe from './EarthGlobe'
 import PointSelector from './PointSelector'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
   
   const [text, setText] = useState("")
 
