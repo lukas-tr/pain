@@ -21,13 +21,13 @@ export function DataSourcesDialog() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <button>Data Resources</button>
+          <button>How it works?</button>
         </DialogTrigger>
         <DialogContent className="">
           <>
-            <DialogHeader> <DialogTitle className="">WHERE DOES OUR DATA COME FROM?</DialogTitle> </DialogHeader>
+            <DialogHeader> <DialogTitle className="">How it works?</DialogTitle> </DialogHeader>
             <div className="flex-grow">
-              TODO
+              <img src="howitworks.jpg" className="max-w-300"/>
             </div>
 
           </>
