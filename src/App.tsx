@@ -12,9 +12,9 @@ function WelcomeSection() {
   return (
     <div className="section text-center">
       {/* TODO: add logo image */}
-      <img src="/pain.png" width={256} height={256} alt="P.A.I.N. logo" />
-      <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N.</strong> is PERSONAL AND INTERCONNECTED with NATURE</h1>
-      <p>P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects through a scientific, medical, and creative approach. It provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
+      <img src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" />
+      <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N.</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
+      <p>P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
 
       <button className="mt-8" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
         <Icon path={mdiMouseScrollWheel} size={1} />
@@ -69,7 +69,7 @@ function App() {
     <>
       <WelcomeSection />
       <div className="card">
-        <h2 className="text-[1.8rem] m-2">EXPLORE PERSONAL-PLANETARY-PAIN (PPP) </h2>
+        <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
         <p className="m-2">(click anywhere on the map)</p>
           <Legend />
         <div className="relative">

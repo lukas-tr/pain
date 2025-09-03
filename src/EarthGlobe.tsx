@@ -68,8 +68,8 @@ function Earth() {
     // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
     const clouds = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_clouds.jpg");
     // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
-    // const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
-    const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");
+    const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
+    //const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");/
     const soundSourceSphereKey = useRef(0);
 
     const day = useLoader(THREE.TextureLoader, "/textures/planets/economic.png");
