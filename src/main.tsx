@@ -10,3 +10,15 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+
+  const audio = new Audio("audio/BACKGROUND.wav");
+  audio.loop = true;
+
+const loopBackground = () => {
+  audio.play();
+}
+
+window.addEventListener("scroll", loopBackground, {passive: true});
+window.addEventListener("pointermove", loopBackground, {passive: true});
+window.addEventListener("click", loopBackground, {passive: true});
+window.addEventListener("touchstart", loopBackground, {passive: true});

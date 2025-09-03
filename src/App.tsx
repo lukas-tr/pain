@@ -1,13 +1,7 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
-// import { Canvas, useFrame } from '@react-three/fiber'
 import EarthGlobe from './EarthGlobe'
-import PointSelector from './PointSelector'
-import PainForm from './PainForm'
 import Icon from '@mdi/react';
-import { mdiArrowRightThin, mdiMouseScrollWheel } from '@mdi/js';
+import { mdiMouseScrollWheel } from '@mdi/js';
 import ShareYourPainDialog from './ShareYourPainDialog'
 import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
@@ -20,7 +14,7 @@ function WelcomeSection() {
       <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N.</strong> is PERSONAL AND INTERCONNECTED with NATURE</h1>
       <p>P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects through a scientific, medical, and creative approach. It provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
 
-      <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+      <button className="mt-8" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
         <Icon path={mdiMouseScrollWheel} size={1} />
         <span>Scroll down to explore the map</span>
       </button>
@@ -30,6 +24,7 @@ function WelcomeSection() {
 }
 
 function App() {
+
   // const [count, setCount] = useState(0)
 
   // const [text, setText] = useState("")
@@ -37,17 +32,9 @@ function App() {
   return (
     <>
       <WelcomeSection />
-      <PainForm />
       <div className="card">
-        <PointSelector
-          width={480}
-          height={320}
-          initialPoint={{ x: 0.25, y: 0.75 }}
-          onChange={p => console.log(p)}
-        />
-        <button>next <Icon path={mdiArrowRightThin} size={1} /></button>
-        <h2>EXPLORE PERSONAL-PLANETARY-PAIN (PPP) </h2>
-        <p>(click anywhere on the map)</p>
+        <h2 className="text-[1.8rem] m-2">EXPLORE PERSONAL-PLANETARY-PAIN (PPP) </h2>
+        <p className="m-2">(click anywhere on the map)</p>
         <EarthGlobe />
         {/* <Canvas>
     <ambientLight intensity={Math.PI / 2} />

@@ -1,24 +1,24 @@
-import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
 
 // texture source: https://www.solarsystemscope.com/textures/
 
-function EquirectBackground({ src }: { src: string }) {
-    const tex = useLoader(THREE.TextureLoader, src);
-    const { scene } = useThree();
+// function EquirectBackground({ src }: { src: string }) {
+//     const tex = useLoader(THREE.TextureLoader, src);
+//     const { scene } = useThree();
 
-    useEffect(() => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.mapping = THREE.EquirectangularReflectionMapping;
-        const prev = scene.background;
-        scene.background = tex;
-        return () => { scene.background = prev; };
-    }, [scene, tex]);
+//     useEffect(() => {
+//         tex.colorSpace = THREE.SRGBColorSpace;
+//         tex.mapping = THREE.EquirectangularReflectionMapping;
+//         const prev = scene.background;
+//         scene.background = tex;
+//         return () => { scene.background = prev; };
+//     }, [scene, tex]);
 
-    return null;
-}
+//     return null;
+// }
 
 function SoundSourceSphere(props: { position: [number, number, number] }) {
     // This reference will give us direct access to the mesh
@@ -121,7 +121,7 @@ function Earth() {
             {boxes.map((box, i) => (
                 <SoundSourceSphere key={i + soundSourceSphereKey.current} position={box.position} />
             ))}
-            
+
             {/* economic
             <mesh>
                 <sphereGeometry args={[1.005, 64, 64]} />

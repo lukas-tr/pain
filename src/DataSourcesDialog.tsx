@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,7 +10,6 @@ import {
 } from "@/components/ui/dialog"
 import { mdiArrowRightThin } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useState } from "react";
 // import { Input } from "@/components/ui/input"
 // import { Label } from "@/components/ui/label"
 //
@@ -70,7 +68,7 @@ export function DataSourcesDialog() {
           </>
           <DialogFooter className="flex justify-between">
             <DialogClose asChild>
-              <button variant="outline">close</button>
+              <button >close</button>
             </DialogClose>
             <button type="submit">next <Icon path={mdiArrowRightThin} size={1} /></button>
           </DialogFooter>

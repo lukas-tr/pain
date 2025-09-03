@@ -1,9 +1,7 @@
-// import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -12,8 +10,7 @@ import {
 import { mdiArrowRightThin } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useState } from "react";
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
+import PointSelector from "./PointSelector";
 
 export function ShareYourPainDialog() {
   const [personalPainText, setPersonalPainText] = useState("");
@@ -22,7 +19,7 @@ export function ShareYourPainDialog() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <button variant="outline">Share Your Pain</button>
+          <button >Share Your Pain</button>
         </DialogTrigger>
         <DialogContent className="">
           {section === 0 && (
@@ -35,6 +32,21 @@ export function ShareYourPainDialog() {
             </>
           )}
           {section === 1 && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="">What does your pain feel like? Click within the blue areas.</DialogTitle>
+              </DialogHeader>
+              <div className="flex-grow">
+                <PointSelector
+                  width={480}
+                  height={320}
+                  initialPoint={{ x: 0.25, y: 0.75 }}
+                  onChange={p => console.log(p)}
+                />
+              </div>
+            </>
+          )}
+          {section === 2 && (
             <>
               <DialogHeader>
                 <DialogTitle className="">Write a personal account of your pain experience</DialogTitle>
@@ -51,10 +63,10 @@ export function ShareYourPainDialog() {
           )}
           <DialogFooter className="flex justify-between">
             <DialogClose asChild>
-              <button variant="outline" onClick={() => setSection(0)}>close</button>
+              <button onClick={() => setSection(0)}>close</button>
             </DialogClose>
             {section !== 0 &&
-            <button type="submit">next <Icon path={mdiArrowRightThin} size={1} /></button>
+              <button type="submit" onClick={() => setSection((prev) => prev + 1)}>next <Icon path={mdiArrowRightThin} size={1} /></button>
             }
           </DialogFooter>
         </DialogContent>
