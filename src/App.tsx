@@ -5,6 +5,8 @@ import { mdiMouseScrollWheel } from '@mdi/js';
 import ShareYourPainDialog from './ShareYourPainDialog'
 import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
+import { useState } from 'react';
+import SharedPainCard from './SharedPainCard';
 
 function WelcomeSection() {
   return (
@@ -18,16 +20,50 @@ function WelcomeSection() {
         <Icon path={mdiMouseScrollWheel} size={1} />
         <span>Scroll down to explore the map</span>
       </button>
-
     </div>
   );
+}
+
+function Legend() {
+  return (
+    <div className="legend">
+      <div className="legend-row">
+        <div style={{ backgroundImage: "linear-gradient(to top, darkgrey , white)", width: "2rem", height: "2rem", flexShrink: 0, border: "1px solid var(--fg-primary)", borderRadius: 4 }}></div>
+        <p>
+          <strong>Environmental Destruction</strong> (air pollution, deforestation, toxicity, rare earth mining, fires, earthquakes, floods)
+        </p>
+      </div>
+
+      <div className="legend-row">
+        <div style={{ backgroundColor: "#ff00ff", width: "2rem", height: "2rem", flexShrink: 0, border: "1px solid var(--fg-primary)", borderRadius: 4 }}></div>
+        <p>
+          <strong>Physiological and Physical Pain</strong> (human health datasets, asthma rates, chronic pain, cancers and diseases)
+        </p>
+      </div>
+
+      <div className="legend-row">
+        <div style={{ backgroundColor: "#00ffff", width: "2rem", height: "2rem", flexShrink: 0, border: "1px solid var(--fg-primary)", borderRadius: 4 }}></div>
+        <p>
+          <strong>Emotional Pain</strong> (social media posts, personal narratives, grief, solastalgia, anxiety, depression)
+        </p>
+      </div>
+
+      <div className="legend-row">
+        <div style={{ backgroundColor: "#ffff00", width: "2rem", height: "2rem", flexShrink: 0, border: "1px solid var(--fg-primary)", borderRadius: 4 }}></div>
+        <p>
+          <strong>Socio-economic Pain</strong> (social vulnerability indexes, deaths in conflicts, poverty rates, healthcare, GDP, human rights index)
+        </p>
+      </div>
+    </div>
+  )
 }
 
 function App() {
 
   // const [count, setCount] = useState(0)
 
-  // const [text, setText] = useState("")
+  const [analysisResult, setAnalysisResult] = useState("asdf")
+  const [coords, setCoords] = useState<[number, number] | null>([1,1]);
 
   return (
     <>
@@ -35,7 +71,15 @@ function App() {
       <div className="card">
         <h2 className="text-[1.8rem] m-2">EXPLORE PERSONAL-PLANETARY-PAIN (PPP) </h2>
         <p className="m-2">(click anywhere on the map)</p>
-        <EarthGlobe />
+          <Legend />
+        <div className="relative">
+        {
+          coords && analysisResult && (
+            <SharedPainCard coords={coords} analysisResult={analysisResult} />
+          )
+        }
+          <EarthGlobe />
+        </div>
         {/* <Canvas>
     <ambientLight intensity={Math.PI / 2} />
     <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
@@ -45,11 +89,16 @@ function App() {
   </Canvas> */}
       </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
-      <AboutDialog />
-      <DataSourcesDialog />
-      <div className="flex-grow"></div>
-      <ShareYourPainDialog />
-</div>
+        <AboutDialog />
+        <DataSourcesDialog />
+        <div className="flex-grow"></div>
+        <ShareYourPainDialog onAnalysisComplete={(analysis) => {
+          // TODO: show this text
+          setAnalysisResult(analysis.planetary_view);
+          // TODO: highlight this coordinate
+          setCoords([analysis.lat, analysis.lon]);
+        }} />
+      </div>
     </>
   )
 }

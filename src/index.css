@@ -116,6 +116,11 @@ button {
   font-size: 1.4rem;
 }
 
+button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
 /* a {
   font-weight: 500;
   color: #646cff;
@@ -215,4 +220,22 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+
+:root{--pulse-duration:1.2s;--min-opacity:.25}
+.pulse-opacity{
+  animation: pulseOpacity var(--pulse-duration) ease-in-out infinite;
+  will-change: opacity;
+}
+@keyframes pulseOpacity{
+  0%   { opacity: 1; }
+  50%  { opacity: var(--min-opacity); }
+  100% { opacity: 1; }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .pulse-opacity{ animation: none; opacity: 1; }
 }
