@@ -20,6 +20,14 @@ import { useEffect, useRef, useState } from "react";
 //     return null;
 // }
 
+const soundFiles = [
+    new Audio("audio/earth.wav"),
+    new Audio("audio/fire.wav"),
+    new Audio("audio/metal.wav"),
+    new Audio("audio/water.wav"),
+    new Audio("audio/wood.wav"),
+]
+
 function SoundSourceSphere(props: { position: [number, number, number] }) {
     // This reference will give us direct access to the mesh
     const meshRef = useRef<THREE.Mesh>(null!);
@@ -58,9 +66,7 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
     )
 }
 
-
 function Earth() {
-    const earthRef = useRef<THREE.Mesh>(null!);
     const grp = useRef<THREE.Group>(null!);
     const cloudsRef = useRef<THREE.Mesh>(null!);
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
@@ -72,13 +78,16 @@ function Earth() {
     //const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");/
     const soundSourceSphereKey = useRef(0);
 
-    const day = useLoader(THREE.TextureLoader, "/textures/planets/economic.png");
+    // const day = useLoader(THREE.TextureLoader, "/textures/planets/economic.png");
+    const emotional = useLoader(THREE.TextureLoader, "/textures/planets/emo-map.png");
+    const physical = useLoader(THREE.TextureLoader, "/textures/planets/physical-map.png");
+    const social = useLoader(THREE.TextureLoader, "/textures/planets/socio-eco-map.png");
 
     // Store box positions as array of { position: [x, y, z] }
     const [boxes, setBoxes] = useState<{ position: [number, number, number] }[]>([]);
 
     useEffect(() => {
-        [day, clouds].forEach(t => {
+        [emotional, physical, social, clouds].forEach(t => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = 8;
         });
@@ -88,7 +97,7 @@ function Earth() {
             t.anisotropy = 8;
             t.wrapS = t.wrapT = THREE.RepeatWrapping;
         });
-    }, [day, clouds, height]);
+    }, [emotional, physical, social, clouds, height]);
 
     useFrame((_, delta) => {
         grp.current.rotation.y += delta * 0.03;
@@ -103,17 +112,38 @@ function Earth() {
         // setBoxes(prev => [...prev, { position: pos }]);
         setBoxes(() => [{ position: pos }]);
         soundSourceSphereKey.current += 1;
+        soundFiles[Math.floor(Math.random() * soundFiles.length)].play();
     }
 
     return (
         <group ref={grp}>
             {/* Globe */}
-            <mesh ref={earthRef} onClick={handleEarthClick}>
+            <mesh onClick={handleEarthClick}>
                 <sphereGeometry args={[1, 512, 512]} />
-                <meshStandardMaterial map={day}
+                <meshStandardMaterial map={emotional}
                     displacementMap={height}
                     displacementScale={-0.2}
                     displacementBias={0}
+                />
+            </mesh>
+            <mesh onClick={handleEarthClick}>
+                <sphereGeometry args={[1, 512, 512]} />
+                <meshStandardMaterial map={physical}
+                    displacementMap={height}
+                    displacementScale={-0.2}
+                    displacementBias={0}
+                    opacity={0.3}
+                    transparent
+                />
+            </mesh>
+            <mesh onClick={handleEarthClick}>
+                <sphereGeometry args={[1, 512, 512]} />
+                <meshStandardMaterial map={social}
+                    displacementMap={height}
+                    displacementScale={-0.2}
+                    displacementBias={0}
+                    opacity={0.3}
+                    transparent
                 />
             </mesh>
 
@@ -139,7 +169,7 @@ function Earth() {
                 <meshStandardMaterial
                     map={clouds}
                     transparent
-                    opacity={0.5}
+                    opacity={0.3}
                     depthWrite={false}
                 />
             </mesh>
