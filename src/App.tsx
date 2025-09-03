@@ -62,8 +62,8 @@ function App() {
 
   // const [count, setCount] = useState(0)
 
-  const [analysisResult, setAnalysisResult] = useState("asdf")
-  const [coords, setCoords] = useState<[number, number] | null>([1,1]);
+  const [analysisResult, setAnalysisResult] = useState("")
+  const [coords, setCoords] = useState<[number, number] | null>(null);
 
   return (
     <>
