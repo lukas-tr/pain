@@ -67,7 +67,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           {section === 0 && (
             <>
               <div className="flex-grow text-center flex flex-col justify-center items-center gap-4">
-                <h2>SHARE YOUR PAIN</h2>
+                <h2><strong>SHARE YOUR PAIN</strong></h2>
                 <p> we will locate your pain on the planet's body</p>
                 <button onClick={() => setSection(1)}>Continue</button>
               </div>
@@ -76,15 +76,20 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           {section === 1 && (
             <>
               <DialogHeader>
-                <DialogTitle className="">What does your pain feel like? Click within the blue areas.</DialogTitle>
+                <DialogTitle className=""><br></br>Where does the pain live in your body? Click within the blue areas
+              <br></br><br></br><br></br><br></br>
+              <img src= "Human Body Diagram.jpeg" />
+
+
+.</DialogTitle>
               </DialogHeader>
               <div className="flex-grow">
-                <PointSelector
+                {/* <PointSelector
                   width={480}
                   height={320}
                   initialPoint={{ x: 0.25, y: 0.75 }}
                   onChange={p => console.log(p)}
-                />
+                /> */}
               </div>
             </>
           )}

@@ -26,8 +26,8 @@ export function DataSourcesDialog() {
         <DialogContent className="">
           <>
             <DialogHeader> <DialogTitle className="">How it works?</DialogTitle> </DialogHeader>
-            <div className="flex-grow">
-              <img src="howitworks.jpg" className="max-w-300"/>
+            <div className="flex-grow overflow-scroll">
+              <img src="howitworks.jpg" className="max-w-150 m-auto max-w-[100%]"/>
             </div>
 
           </>

@@ -22,10 +22,14 @@ export function AboutDialog() {
         </DialogTrigger>
         <DialogContent className="">
           <>
-            <DialogHeader> <DialogTitle className="text-[2.2rem]">ABOUT THE PPP MAP </DialogTitle> </DialogHeader>
+            <DialogHeader> <DialogTitle className="text-[2.2rem]"><strong> ABOUT THE PPP MAP </strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-scroll">
               <p className="text-[1.8rem] mb-8">
-                PPP (Personal-Planetary-Pain) is an interactive map that visualizes the interconnectedness of ecological loss and human health through the concept of "phantom scars."
+                <strong>PPP (Personal–Planetary–Pain) </strong>is an interactive map that explores the interconnectedness of ecological loss, socioeconomic suffering, and the human pain experience.
+When the Earth is in pain, we are in pain. Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
+Users are invited to share their own narratives of pain, which become part of a growing collective memory tied to sites of ecological distress around the world.
+By weaving together the personal and the planetary, the PPP map highlights both micro and macro crises, encouraging reflection on how ecological and health challenges leave lasting, interconnected imprints.
+
               </p>
               <p className="text-[1.8rem] mb-8">
                 Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries.
