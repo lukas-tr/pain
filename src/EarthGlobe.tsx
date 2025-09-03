@@ -46,8 +46,7 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
         >
             <sphereGeometry args={[1, 32, 32]} />
             <meshStandardMaterial
-
-                color="#0af402"
+                color="#0000ff"
                 transparent
                 opacity={0.2}
                 side={THREE.FrontSide}
@@ -65,11 +64,15 @@ function Earth() {
     const grp = useRef<THREE.Group>(null!);
     const cloudsRef = useRef<THREE.Mesh>(null!);
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
-    const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
+    // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
     // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
     const clouds = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_clouds.jpg");
+    // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
     const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
+    // const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");
     const soundSourceSphereKey = useRef(0);
+
+    const day = useLoader(THREE.TextureLoader, "/textures/planets/economic.png");
 
     // Store box positions as array of { position: [x, y, z] }
     const [boxes, setBoxes] = useState<{ position: [number, number, number] }[]>([]);
@@ -118,6 +121,17 @@ function Earth() {
             {boxes.map((box, i) => (
                 <SoundSourceSphere key={i + soundSourceSphereKey.current} position={box.position} />
             ))}
+            
+            {/* economic
+            <mesh>
+                <sphereGeometry args={[1.005, 64, 64]} />
+                <meshStandardMaterial
+                    map={economic}
+                    transparent
+                    opacity={0.5}
+                    depthWrite={false}
+                />
+            </mesh> */}
 
             {/* Clouds */}
             <mesh ref={cloudsRef}>
@@ -125,7 +139,7 @@ function Earth() {
                 <meshStandardMaterial
                     map={clouds}
                     transparent
-                    opacity={0.1}
+                    opacity={0.5}
                     depthWrite={false}
                 />
             </mesh>
@@ -152,7 +166,7 @@ export default function EarthScene() {
     }, [])
     return (
         <Canvas style={{ width: "100vw", height: "90vh" }} camera={{ fov: 25, position: [4.5, 2, 3] }}>
-            <EquirectBackground src="/textures/planets/8k_stars_milky_way.jpg" />
+            {/* <EquirectBackground src="/textures/planets/8k_stars_milky_way.jpg" /> */}
             {/* <color attach="background" args={["#000"]} /> */}
             <ambientLight intensity={2} />
             <directionalLight color="#fff" intensity={5} position={[0, 0, 3]} />

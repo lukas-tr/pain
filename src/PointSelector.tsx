@@ -7,10 +7,8 @@ type Props = {
   height?: number;
   initialPoint?: Point; // normalized 0..1
   onChange?: (p: Point) => void;
-  snapToGrid?: number | null; // integer divisions (e.g. 10 -> snap to 0.0,0.1,...,1.0)
   step?: number; // keyboard arrow step (normalized)
   showCoords?: boolean;
-  gridLines?: number | null; // visual grid lines count
 };
 
 export default function PointSelector({
@@ -18,10 +16,8 @@ export default function PointSelector({
   height = 400,
   initialPoint = { x: 0.5, y: 0.5 },
   onChange,
-  snapToGrid = null,
-  step = 0.01,
+  step = 0.05,
   showCoords = true,
-  gridLines = 10,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [pt, setPt] = useState<Point>(clampPoint(initialPoint));
@@ -36,19 +32,13 @@ export default function PointSelector({
     return { x: clamp(p.x), y: clamp(p.y) };
   }
 
-  function applySnap(p: Point) {
-    if (!snapToGrid || snapToGrid <= 0) return p;
-    const s = snapToGrid;
-    return { x: Math.round(p.x * s) / s, y: Math.round(p.y * s) / s };
-  }
-
   function setPointFromClient(clientX: number, clientY: number) {
     const el = containerRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
     const x = (clientX - r.left) / r.width;
     const y = (clientY - r.top) / r.height;
-    const normalized = applySnap(clampPoint({ x, y }));
+    const normalized = clampPoint({ x, y });
     setPt(normalized);
     onChange?.(normalized);
   }
@@ -80,7 +70,7 @@ export default function PointSelector({
     if (e.key === "ArrowDown") dy = step;
     if (dx || dy) {
       e.preventDefault();
-      const next = applySnap(clampPoint({ x: pt.x + dx, y: pt.y + dy }));
+      const next = clampPoint({ x: pt.x + dx, y: pt.y + dy });
       setPt(next);
       onChange?.(next);
     }
@@ -97,7 +87,7 @@ export default function PointSelector({
         tabIndex={0}
         onKeyDown={onKeyDown}
         className="select-none outline-none"
-        style={{ width, height }}
+        style={{ width, height, backgroundColor: "var(--fg-primary)", borderRadius: 50 }}
       >
         <svg
           width={width}
@@ -108,22 +98,6 @@ export default function PointSelector({
           onClick={onClick}
           className="rounded border border-gray-300 bg-white cursor-crosshair"
         >
-          {/* grid */}
-          {gridLines && gridLines > 0 && (
-            <g strokeOpacity={0.6} strokeWidth={1} stroke="#e5e7eb">
-              {Array.from({ length: gridLines + 1 }).map((_, i) => {
-                const x = (i / gridLines) * width;
-                const y = (i / gridLines) * height;
-                return (
-                  <g key={i}>
-                    <line x1={x} y1={0} x2={x} y2={height} />
-                    <line x1={0} y1={y} x2={width} y2={y} />
-                  </g>
-                );
-              })}
-            </g>
-          )}
-
           {/* crosshair lines */}
           <line x1={cx} y1={0} x2={cx} y2={height} stroke="#111827" strokeOpacity={0.15} />
           <line x1={0} y1={cy} x2={width} y2={cy} stroke="#111827" strokeOpacity={0.15} />
