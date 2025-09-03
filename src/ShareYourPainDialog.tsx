@@ -10,7 +10,6 @@ import {
 import { mdiArrowRightThin } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useEffect, useState } from "react";
-import PointSelector from "./PointSelector";
 
 interface IPainAnalysis {
   bumpmap_url: string; // should be ignored
