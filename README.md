@@ -18,4 +18,5 @@ The following changes were made afterwards
 - replace 8k clouds with 2k clouds texture because of file size
 - reduce earth polygon count
 - offset the pain layers
+- load textures in parallel
 

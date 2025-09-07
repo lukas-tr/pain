@@ -72,16 +72,24 @@ function Earth() {
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
     // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
-    const clouds = useLoader(THREE.TextureLoader, "/textures/planets/2k_earth_clouds.jpg");
+    const [
+        clouds,
+        height,
+        emotional,
+        physical, 
+        social,
+    ] = useLoader(THREE.TextureLoader, [
+        "/textures/planets/2k_earth_clouds.jpg",
+        "https://pain-ix0y.onrender.com/api/bumpmap/",
+        "/textures/planets/emo-map.png",
+        "/textures/planets/physical-map.png",
+        "/textures/planets/socio-eco-map.png",
+    ]);
     // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
     // const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
-    const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");
     const soundSourceSphereKey = useRef(0);
 
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/economic.png");
-    const emotional = useLoader(THREE.TextureLoader, "/textures/planets/emo-map.png");
-    const physical = useLoader(THREE.TextureLoader, "/textures/planets/physical-map.png");
-    const social = useLoader(THREE.TextureLoader, "/textures/planets/socio-eco-map.png");
 
     // Store box positions as array of { position: [x, y, z] }
     const [boxes, setBoxes] = useState<{ position: [number, number, number] }[]>([]);
