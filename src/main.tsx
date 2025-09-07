@@ -11,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-  const audio = new Audio("audio/BACKGROUND.wav");
+  const audio = new Audio("audio/BACKGROUND.ogg");
   audio.loop = true;
 
 const loopBackground = () => {

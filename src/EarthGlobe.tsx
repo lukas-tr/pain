@@ -21,11 +21,11 @@ import { useEffect, useRef, useState } from "react";
 // }
 
 const soundFiles = [
-    new Audio("audio/earth.wav"),
-    new Audio("audio/fire.wav"),
-    new Audio("audio/metal.wav"),
-    new Audio("audio/water.wav"),
-    new Audio("audio/wood.wav"),
+    new Audio("audio/earth.ogg"),
+    new Audio("audio/fire.ogg"),
+    new Audio("audio/metal.ogg"),
+    new Audio("audio/water.ogg"),
+    new Audio("audio/wood.ogg"),
 ]
 
 function SoundSourceSphere(props: { position: [number, number, number] }) {
@@ -72,7 +72,7 @@ function Earth() {
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap.jpg");
     // const day = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_daymap_greyscale.jpg");
     // const night = useLoader(THREE.TextureLoader, "/textures/planets/earth_night_4096.jpg");
-    const clouds = useLoader(THREE.TextureLoader, "/textures/planets/8k_earth_clouds.jpg");
+    const clouds = useLoader(THREE.TextureLoader, "/textures/planets/2k_earth_clouds.jpg");
     // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
     // const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
     const height = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/bumpmap/");
@@ -114,12 +114,14 @@ function Earth() {
         soundSourceSphereKey.current += 1;
         soundFiles[Math.floor(Math.random() * soundFiles.length)].play();
     }
+    
+    const widthHeightSegments = 128;
 
     return (
         <group ref={grp}>
             {/* Globe */}
             <mesh onClick={handleEarthClick}>
-                <sphereGeometry args={[1, 512, 512]} />
+                <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={emotional}
                     displacementMap={height}
                     displacementScale={-0.2}
@@ -127,21 +129,21 @@ function Earth() {
                 />
             </mesh>
             <mesh onClick={handleEarthClick}>
-                <sphereGeometry args={[1, 512, 512]} />
+                <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={physical}
                     displacementMap={height}
                     displacementScale={-0.2}
-                    displacementBias={0}
+                    displacementBias={0.01}
                     opacity={0.3}
                     transparent
                 />
             </mesh>
             <mesh onClick={handleEarthClick}>
-                <sphereGeometry args={[1, 512, 512]} />
+                <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={social}
                     displacementMap={height}
                     displacementScale={-0.2}
-                    displacementBias={0}
+                    displacementBias={0.02}
                     opacity={0.3}
                     transparent
                 />
@@ -165,7 +167,7 @@ function Earth() {
 
             {/* Clouds */}
             <mesh ref={cloudsRef}>
-                <sphereGeometry args={[1.01, 64, 64]} />
+                <sphereGeometry args={[1.03, 64, 64]} />
                 <meshStandardMaterial
                     map={clouds}
                     transparent
@@ -176,7 +178,7 @@ function Earth() {
 
             {/* Atmosphere glow */}
             <mesh>
-                <sphereGeometry args={[1.03, 64, 64]} />
+                <sphereGeometry args={[1.04, 64, 64]} />
                 <meshBasicMaterial
                     color="#4db2ff"
                     transparent

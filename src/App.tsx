@@ -73,14 +73,6 @@ function App() {
         <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
         <p className="m-2">(click anywhere on the map)</p>
           <Legend />
-        <div className="relative">
-        {
-          coords && analysisResult && (
-            <SharedPainCard coords={coords} analysisResult={analysisResult} />
-          )
-        }
-          <EarthGlobe />
-        </div>
         {/* <Canvas>
     <ambientLight intensity={Math.PI / 2} />
     <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
@@ -89,6 +81,14 @@ function App() {
     <Box position={[1.2, 0, 0]} />
   </Canvas> */}
       </div>
+        <div className="relative">
+        {
+          coords && analysisResult && (
+            <SharedPainCard coords={coords} analysisResult={analysisResult} />
+          )
+        }
+          <EarthGlobe />
+        </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
         <DataSourcesDialog />

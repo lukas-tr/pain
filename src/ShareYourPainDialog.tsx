@@ -12,14 +12,15 @@ import Icon from "@mdi/react";
 import { useEffect, useState } from "react";
 
 interface IPainAnalysis {
-  bumpmap_url: string; // should be ignored
-  deterministic_seed: string; // should be ignored
-  model: string; // should be ignored
-  source: string; // should be ignored
-
   lat: number;
   lon: number;
   planetary_view: string;
+
+  // those should be ignored for now
+  bumpmap_url: string;
+  deterministic_seed: string;
+  model: string;
+  source: string;
 }
 
 export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete?: (analysis: IPainAnalysis) => void }) {
