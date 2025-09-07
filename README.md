@@ -19,4 +19,5 @@ The following changes were made afterwards
 - reduce earth polygon count
 - offset the pain layers
 - load textures in parallel
+- lazy load images
 
