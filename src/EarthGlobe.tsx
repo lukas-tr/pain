@@ -123,7 +123,7 @@ function Earth() {
         soundFiles[Math.floor(Math.random() * soundFiles.length)].play();
     }
     
-    const widthHeightSegments = 128;
+    const widthHeightSegments = 64;
 
     return (
         <group ref={grp}>
@@ -141,7 +141,7 @@ function Earth() {
                 <meshStandardMaterial map={physical}
                     displacementMap={height}
                     displacementScale={-0.2}
-                    displacementBias={0.01}
+                    displacementBias={0.005}
                     opacity={0.3}
                     transparent
                 />
@@ -151,7 +151,7 @@ function Earth() {
                 <meshStandardMaterial map={social}
                     displacementMap={height}
                     displacementScale={-0.2}
-                    displacementBias={0.02}
+                    displacementBias={0.01}
                     opacity={0.3}
                     transparent
                 />

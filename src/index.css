@@ -3,6 +3,7 @@
 
 :root {
   font-family: "Roboto", system-ui, sans-serif;
+  font-weight: 400;
   /* line-height: 1.5;
   font-weight: 400; */
 
@@ -58,8 +59,9 @@ body, html {
 }
 
 * {
-  font-weight: 400;
   outline-color: var(--fg-primary);
+  scrollbar-color: var(--fg-primary) var(--bg-primary);
+
 }
 
 textarea {
