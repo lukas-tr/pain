@@ -27,7 +27,6 @@ export function DataSourcesDialog() {
           <>
             <DialogHeader> <DialogTitle className="text-[2.2rem]"><strong>How it works?</strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-scroll">
-              <p className="text-[1.6rem] mb-8">
               <img loading="lazy" src="howitworks.jpg" className="max-w-150 m-auto max-w-[100%]"/>
                 Navigate the PPP Map by rotating and zooming in on the Earth’s surface. As you travel from one place to another, each point emits a sound associated with one of the five elements: wood, fire, earth, metal, and water. These elements represent the type of environmental pain that the planet is experiencing. 
               <br></br>
