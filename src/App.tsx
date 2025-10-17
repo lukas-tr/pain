@@ -88,14 +88,23 @@ function App() {
   </Canvas> */}
       </div>
         <div className="relative overflow-hidden">
-          <EarthGlobe />
+        <div className="text-red-500 absolute top-2 left-2 z-10 border-red-500 border">
+          TODO: remove
+          <button onClick={() => setCoords([Math.random() * 180 - 90, Math.random() * 360 - 180])}>set random coords</button>
+          <button onClick={() => setCoords([52.52, 13.405])}>set coords central europe</button>
+          <button onClick={() => setCoords([-33.8688, 151.2093])}>set coords sydney</button>
+          <button onClick={() => setCoords([40.7128, -74.0060])}>set coords new york</button>
+        </div>
+
+        {/* lat ∈ [-90.0, 90.0]
+lon ∈ [-180.0, 180.0] */}
+          <EarthGlobe highlightCoords={coords} />
         </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
         <DataSourcesDialog />
         <div className="flex-grow"></div>
         <ShareYourPainDialog onAnalysisComplete={(analysis) => {
-          // TODO: show this text
           setAnalysisResult(analysis.planetary_view);
           // TODO: highlight this coordinate
           setCoords([analysis.lat, analysis.lon]);
