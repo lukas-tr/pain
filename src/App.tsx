@@ -1,7 +1,5 @@
 import './App.css'
 import EarthGlobe from './EarthGlobe'
-import Icon from '@mdi/react';
-import { mdiMouseScrollWheel } from '@mdi/js';
 import ShareYourPainDialog from './ShareYourPainDialog'
 import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
@@ -12,15 +10,9 @@ function WelcomeSection() {
   return (
     <div className="section text-center">
       {/* TODO: add logo image */}
-      <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" />
-      <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N.</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
+      <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
       <br></br>
       <p>P.A.I.N is a research investigatory project exploringd the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
-
-      <button className="mt-8" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
-        <Icon path={mdiMouseScrollWheel} size={1} />
-        <span>Scroll down to explore the map</span>
-      </button>
     </div>
   );
 }
@@ -70,10 +62,6 @@ function App() {
     <>
       <WelcomeSection />
       <div className="card">
-        <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
-        <p className="m-2">(click anywhere on the map)</p>
-          <Legend />
-
         {
           coords && analysisResult && (
             <SharedPainCard coords={coords} analysisResult={analysisResult} />
@@ -88,17 +76,19 @@ function App() {
   </Canvas> */}
       </div>
         <div className="relative overflow-hidden">
-        <div className="text-red-500 absolute top-2 left-2 z-10 border-red-500 border">
-          TODO: remove
+           <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
+
+        <div className="top-[200px] text-red-500 absolute top-2 left-2 z-10 border-red-500 border">
+          TODO: remove (this is here for debuggin)
           <button onClick={() => setCoords([Math.random() * 180 - 90, Math.random() * 360 - 180])}>set random coords</button>
           <button onClick={() => setCoords([52.52, 13.405])}>set coords central europe</button>
           <button onClick={() => setCoords([-33.8688, 151.2093])}>set coords sydney</button>
           <button onClick={() => setCoords([40.7128, -74.0060])}>set coords new york</button>
         </div>
-
-        {/* lat ∈ [-90.0, 90.0]
-lon ∈ [-180.0, 180.0] */}
           <EarthGlobe highlightCoords={coords} />
+           <p className="m-2">(click anywhere on the map)</p>
+         <Legend />
+    
         </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
