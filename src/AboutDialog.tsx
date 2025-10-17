@@ -18,7 +18,7 @@ export function AboutDialog() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <button>About PPP</button>
+          <button>About PPP Map</button>
         </DialogTrigger>
         <DialogContent className="">
           <>
