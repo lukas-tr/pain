@@ -11,10 +11,7 @@ import SharedPainCard from './SharedPainCard';
 function WelcomeSection() {
   return (
     <div className="section text-center">
-      {/* TODO: add logo image */}
       <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
-      <br></br>
-      <p>P.A.I.N is a research investigatory project exploringd the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
     </div>
   );
 }
