@@ -111,7 +111,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
               <DialogHeader>
                 <DialogTitle className=""><br></br>Where does the pain live in your body? Click within the blue areas
                 <br></br> <br></br>
-              <img loading="lazy" src= "Human Body Diagram.jpeg" width={900} height={900} className="max-w-[400px] m-auto"/>
+              <img loading="lazy" src= "Human Body Diagram.jpeg" width={1000} height={1500} className="max-w-[500px] m-auto"/>
 </DialogTitle>
               </DialogHeader>
               <div className="flex-grow">
