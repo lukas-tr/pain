@@ -12,6 +12,7 @@ import Icon from "@mdi/react";
 import { useEffect, useState } from "react";
 import WordCloud from "./WordCloud";
 import ElementSelector from "./ElementSelector";
+import BodyPartSelector from "./BodyPartSelector";
 
 interface IPainAnalysis {
   lat: number;
@@ -34,6 +35,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
   const [open, setOpen] = useState(false);
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [selectedElements, setSelectedElements] = useState<string[]>([]);
+  const [selectedBodyParts, setSelectedBodyParts] = useState<string[]>([]);
 
   useEffect(() => {
     if (section === FINAL_SECTION) {
@@ -110,17 +112,13 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             <>
               <DialogHeader>
                 <DialogTitle className=""><br></br>Where does the pain live in your body? Click within the blue areas
-                <br></br> <br></br>
-              <img loading="lazy" src= "Human Body Diagram.jpeg" width={1000} height={1500} className="max-w-[500px] m-auto"/>
 </DialogTitle>
               </DialogHeader>
               <div className="flex-grow">
-                {/* <PointSelector
-                  width={480}
-                  height={320}
-                  initialPoint={{ x: 0.25, y: 0.75 }}
-                  onChange={p => console.log(p)}
-                /> */}
+                <BodyPartSelector
+                selectedBodyParts={selectedBodyParts}
+                onSetSelectedBodyParts={setSelectedBodyParts}
+                />
               </div>
             </>
           )}
