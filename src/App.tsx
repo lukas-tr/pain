@@ -15,7 +15,7 @@ function WelcomeSection() {
       <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" />
       <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N.</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
       <br></br>
-      <p>P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
+      <p>P.A.I.N is a research investigatory project exploringd the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects. </p>
 
       <button className="mt-8" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
         <Icon path={mdiMouseScrollWheel} size={1} />

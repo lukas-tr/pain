@@ -122,7 +122,7 @@ strong {
 button {
   border-radius: 50px;
   background-color: var(--fg-primary);
-  color: white;
+  color: grey;
   display: inline-flex;
   align-items: center;
   padding: 12px;
