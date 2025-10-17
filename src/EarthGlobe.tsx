@@ -63,6 +63,7 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
         <mesh
             {...props}
             ref={meshRef}
+            renderOrder={20}
             //   scale={active ? 1.5 : 1}
             scale={0.001}
         //   onClick={(event) => setActive(!active)}
@@ -76,6 +77,7 @@ function SoundSourceSphere(props: { position: [number, number, number] }) {
                 opacity={0.2}
                 side={THREE.FrontSide}
                 blending={THREE.AdditiveBlending}
+                depthWrite={false}
 
             // transparent color={hovered ? 'hotpink' : 'orange'} 
             />
@@ -98,9 +100,10 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
     ] = useLoader(THREE.TextureLoader, [
         "/textures/planets/2k_earth_clouds.jpg",
         "https://pain-ix0y.onrender.com/api/bumpmap/",
-        "/textures/planets/emo-map.png",
-        "/textures/planets/physical-map.png",
-        "/textures/planets/socio-eco-map.png",
+
+        "/textures/planets/emo-crop.png",
+        "/textures/planets/physical-crop.png",
+        "/textures/planets/socio-eco-crop.png",
     ]);
     // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
     // const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
@@ -112,24 +115,38 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
     const [boxes, setBoxes] = useState<{ position: [number, number, number] }[]>([]);
 
     useEffect(() => {
+        // Configure all visible textures
         [emotional, physical, social, clouds].forEach(t => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = 8;
+            t.needsUpdate = true;
         });
 
-        // Configure PNG textures with alpha channel for iOS compatibility
+        // Special configuration for PNG textures with alpha for iOS compatibility
         [emotional, physical, social].forEach(t => {
-            t.format = THREE.RGBAFormat;
+            // Don't set format explicitly - let Three.js detect it
+            // t.format = THREE.RGBAFormat;
             t.generateMipmaps = true;
             t.minFilter = THREE.LinearMipmapLinearFilter;
             t.magFilter = THREE.LinearFilter;
+            // Premultiply alpha for proper blending
+            t.premultiplyAlpha = false;
+            t.needsUpdate = true;
         });
 
+        // Configure height map
         [height].forEach(t => {
             t.colorSpace = THREE.LinearSRGBColorSpace;
             t.anisotropy = 8;
             t.wrapS = t.wrapT = THREE.RepeatWrapping;
+            t.needsUpdate = true;
         });
+
+        // Configure clouds separately
+        clouds.generateMipmaps = true;
+        clouds.minFilter = THREE.LinearMipmapLinearFilter;
+        clouds.magFilter = THREE.LinearFilter;
+        clouds.needsUpdate = true;
     }, [emotional, physical, social, clouds, height]);
 
     // no rotation -> easier to zoom and explore (otherwise the earth rotates while focusing on the point)
@@ -164,7 +181,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
 
     return (
         <group ref={grp}>
-            {/* Globe */}
+            {/* Globe - Base emotional layer */}
             <mesh onClick={handleEarthClick}>
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={emotional}
@@ -173,6 +190,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     displacementBias={0}
                 />
             </mesh>
+            {/* Physical layer */}
             <mesh onClick={handleEarthClick}>
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={physical}
@@ -181,10 +199,10 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     displacementBias={0.005}
                     opacity={0.3}
                     transparent
-                    alphaTest={0.01}
                     depthWrite={false}
                 />
             </mesh>
+            {/* Social layer */}
             <mesh onClick={handleEarthClick}>
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={social}
@@ -193,7 +211,6 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     displacementBias={0.01}
                     opacity={0.3}
                     transparent
-                    alphaTest={0.01}
                     depthWrite={false}
                 />
             </mesh>
@@ -215,20 +232,19 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
             </mesh> */}
 
             {/* Clouds */}
-            <mesh ref={cloudsRef}>
+            <mesh ref={cloudsRef} renderOrder={10}>
                 <sphereGeometry args={[1.03, 64, 64]} />
                 <meshStandardMaterial
                     map={clouds}
                     transparent
                     opacity={0.3}
                     depthWrite={false}
-                    depthTest={true}
-                    alphaTest={0.01}
+                    side={THREE.FrontSide}
                 />
             </mesh>
 
             {/* Atmosphere glow */}
-            <mesh>
+            <mesh renderOrder={11}>
                 <sphereGeometry args={[1.04, 64, 64]} />
                 <meshBasicMaterial
                     color="#4db2ff"
