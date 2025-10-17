@@ -6,14 +6,6 @@ import DataSourcesDialog from './DataSourcesDialog'
 import { useState } from 'react';
 import SharedPainCard from './SharedPainCard';
 
-function WelcomeSection() {
-  return (
-    <div className="section text-center">
-      <h1 style={{ fontSize: "1.8rem" }}><strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h1>
-    </div>
-  );
-}
-
 function Legend() {
   return (
     <div className="legend">
