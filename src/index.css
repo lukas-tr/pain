@@ -130,7 +130,7 @@ button {
 }
 
 button:disabled {
-  background-color: grey;
+  background-color: white;
   cursor: not-allowed;
 }
 
