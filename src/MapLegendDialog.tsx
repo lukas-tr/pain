@@ -22,10 +22,12 @@ export function MapLegendDialog() {
           <>
             <DialogHeader> <DialogTitle className="">Map Legend</DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-scroll">
-              <img loading="lazy" src="PPP-legend.png" className="max-w-150 m-auto max-w-[100%]"/>
-              PPP Map is a research investigatory project exploring the Earth's pain and its ripple effects.
+                <p className="text-[1.8rem] mb-8">
+               <img loading="lazy" src="PPP-legend.png" className="max-w-150 m-auto max-w-[100%]"/>
+               PPP Map is a research investigatory project exploring the Earth's pain and its ripple effects.
               This map legend provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, 
               political, collective, and interconnected aspects.
+              </p>
             </div>
 
           </>
