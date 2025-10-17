@@ -8,8 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { mdiArrowRightThin } from "@mdi/js";
-import Icon from "@mdi/react";
+//import { mdiArrowRightThin } from "@mdi/js";
+//import Icon from "@mdi/react";
 // import { Input } from "@/components/ui/input"
 // import { Label } from "@/components/ui/label"
 //

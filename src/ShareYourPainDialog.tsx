@@ -68,7 +68,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             <>
               <div className="flex-grow text-center flex flex-col justify-center items-center gap-4">
                    <h2 className="text-[1.8rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>SHARE YOUR PAIN</strong></h2>
-                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> <b>we will locate your pain on the planet's body</b></p>
+                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> we will locate your pain on the planet's body</p>
                 <button onClick={() => setSection(1)}>Continue</button>
               </div>
             </>
