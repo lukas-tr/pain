@@ -6,7 +6,7 @@ import DataSourcesDialog from './DataSourcesDialog'
 import { useState } from 'react';
 import SharedPainCard from './SharedPainCard';
 
-function Legend() {
+/* function Legend() {
   return (
     <div className="legend">
       <div className="legend-row">
@@ -38,7 +38,7 @@ function Legend() {
       </div>
     </div>
   )
-}
+}*/
 
 function App() {
 
