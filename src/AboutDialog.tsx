@@ -26,6 +26,7 @@ export function AboutDialog() {
             <div className="flex-grow overflow-y-auto">
               <p className="text-[1.6rem] mb-8">
                 <img loading="lazy" src="/pain.png" width={550} height={300} className="max-w-[400px] m-auto" alt="P.A.I.N. logo"/>
+             <b></b><b></b><b></b><b></b>
                 <strong> PPP (Personal–Planetary–Pain) </strong>is an interactive map that explores the interconnectedness of ecological loss, socioeconomic suffering, and the human pain experience.
                 When the Earth is in pain, we are in pain.
                 Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
@@ -34,12 +35,8 @@ export function AboutDialog() {
 
               </p>
               <p className="text-[1.6rem] mb-8">
-                Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries.
-              </p>
-              <p className="text-[1.6rem] mb-8">
+                Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries. 
                 Drawing from the principles of Traditional Chinese Medicine (TCM), the map highlights how human pain is interconnected with environmental pain through the five elements—Wood, Fire, Earth, Metal, and Water.
-              </p>
-              <p className="text-[1.6rem] mb-8">
                 Focusing on micro and macro issues, the PPP map encourages reflection on the ongoing impact of ecological and health crises, illustrating the holistic relationship between personal and planetary pain.
               </p>
               <img loading="lazy" className="max-w-[400px] m-auto" src="/traditional-chinese-medicine-types.png" alt="Wood, Fire, Earth, Metal, and Water arranged in a circle" />
