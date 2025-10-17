@@ -70,9 +70,9 @@ function App() {
     <>
       <WelcomeSection />
       <div className="card">
-       <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
-        <p className="m-2">(click anywhere on the map)</p>
-       
+
+
+         <Legend />
         {
           coords && analysisResult && (
             <SharedPainCard coords={coords} analysisResult={analysisResult} />
@@ -88,10 +88,7 @@ function App() {
       </div>
         <div className="relative overflow-hidden">
           <EarthGlobe />
-           <Legend />
-
-
-           
+    
         </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
