@@ -33,6 +33,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
   const [section, setSection] = useState(0);
   const [open, setOpen] = useState(false);
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
+  const [selectedElements, setSelectedElements] = useState<string[]>([]);
 
   useEffect(() => {
     if (section === FINAL_SECTION) {
@@ -43,6 +44,9 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
       let text = personalPainText;
       if (selectedWords.length > 0) {
         text += " It feels like " + selectedWords.join(", ") + ".";
+      }
+      if (selectedElements.length > 0) {
+        text += " I associate this pain with the elements: " + selectedElements.join(", ") + ".";
       }
 
       fetch('https://pain-ix0y.onrender.com/api/planetary-pain', {
@@ -87,11 +91,12 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             <>
               <DialogHeader>
                 <DialogTitle className=""><br></br>What element do you associate your pain with? Click on one or more.
+                  {selectedElements.length > 0 && (<>({selectedElements.length} Selected)</>)}
                 <br></br> <br></br>
 </DialogTitle>
               </DialogHeader>
               <div className="flex-grow">
-                  <ElementSelector />
+                  <ElementSelector selectedElements={selectedElements} onSetSelectedElements={setSelectedElements} />
                 {/* <PointSelector
                   width={480}
                   height={320}
@@ -123,7 +128,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             <>
               <DialogHeader>
                 <DialogTitle className=""><br></br>What does your pain feel like? Click all that apply.
-                  {selectedWords.length > 0 && (<>({selectedWords.length})</>)}
+                  {selectedWords.length > 0 && (<>({selectedWords.length} Selected)</>)}
 </DialogTitle>
               </DialogHeader>
               <div className="flex-grow overflow-y-auto">
