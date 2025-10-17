@@ -20,7 +20,7 @@ export function MapLegendDialog() {
         </DialogTrigger>
         <DialogContent className="">
           <>
-            <DialogHeader> <DialogTitle className="text-[2.2rem]">Map Legend</DialogTitle> </DialogHeader>
+            <DialogHeader> <DialogTitle className="text-[2.2rem]"> Map Legend</DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-scroll">
                 <p className="text-[1.8rem] mb-8">
                <img loading="lazy" src="PPP-legend.png" className="max-w-150 m-auto max-w-[100%]"/>
