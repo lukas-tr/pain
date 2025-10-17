@@ -22,6 +22,7 @@ export function AboutDialog() {
         </DialogTrigger>
         <DialogContent className="">
           <>
+           <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" />
             <DialogHeader> <DialogTitle className="text-[2.2rem]"><strong> ABOUT THE PPP MAP </strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-y-auto">
               <p className="text-[1.8rem] mb-8">
