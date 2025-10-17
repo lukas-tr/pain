@@ -22,7 +22,7 @@ export function MapLegendDialog() {
           <>
             <DialogHeader> <DialogTitle className="">Map Legend</DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-scroll">
-              <img loading="lazy" src="howitworks.jpg" className="max-w-150 m-auto max-w-[100%]"/>
+              <img loading="lazy" src="PPP-legend.png" className="max-w-150 m-auto max-w-[100%]"/>
             </div>
 
           </>
