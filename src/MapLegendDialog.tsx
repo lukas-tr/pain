@@ -23,7 +23,7 @@ export function MapLegendDialog() {
             <DialogHeader> <DialogTitle className="text-[2.2rem]"> <strong>Map Legend</strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-auto">
                 <p className="text-[1.6rem] mb-8">
-               <img loading="lazy" src="maplegend.png" className="max-w-150 m-auto max-w-[100%]"/>
+               <img loading="lazy" src="PPP-legend.png" className="max-w-150 m-auto max-w-[100%]"/>
                The PPP Map is a research investigatory project exploring the Earth's pain and its ripple effects.
               This map legend provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, 
               political, collective, and interconnected aspects.
