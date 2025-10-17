@@ -24,8 +24,9 @@ export function AboutDialog() {
           <>
             <DialogHeader> <DialogTitle className="text-[2.2rem]"><strong> ABOUT THE PPP MAP </strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-y-auto">
-              <p className="text-[1.8rem] mb-8">
+              <p className="text-[1.6rem] mb-8">
                 <img loading="lazy" src="/pain.png" width={550} height={300} className="max-w-[400px] m-auto" alt="P.A.I.N. logo"/>
+             <b></b><b></b><b></b><b></b>
                 <strong> PPP (Personal–Planetary–Pain) </strong>is an interactive map that explores the interconnectedness of ecological loss, socioeconomic suffering, and the human pain experience.
                 When the Earth is in pain, we are in pain.
                 Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
@@ -33,19 +34,15 @@ export function AboutDialog() {
                 By weaving together the personal and the planetary, the PPP map highlights both micro and macro crises, encouraging reflection on how ecological and health challenges leave lasting, interconnected imprints.
 
               </p>
-              <p className="text-[1.8rem] mb-8">
-                Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries.
-              </p>
-              <p className="text-[1.8rem] mb-8">
+              <p className="text-[1.6rem] mb-8">
+                Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries. 
                 Drawing from the principles of Traditional Chinese Medicine (TCM), the map highlights how human pain is interconnected with environmental pain through the five elements—Wood, Fire, Earth, Metal, and Water.
-              </p>
-              <p className="text-[1.8rem] mb-8">
                 Focusing on micro and macro issues, the PPP map encourages reflection on the ongoing impact of ecological and health crises, illustrating the holistic relationship between personal and planetary pain.
               </p>
               <img loading="lazy" className="max-w-[400px] m-auto" src="/traditional-chinese-medicine-types.png" alt="Wood, Fire, Earth, Metal, and Water arranged in a circle" />
-              <b></b><b></b>
+              <b></b><b></b><b></b><b></b>
               <h2 className="text-[2rem] font-[800] mb-4" >Project Team</h2>
-              <ul className="text-[1.8rem] mb-8 list-disc list-inside">
+              <ul className="text-[1.6rem] mb-8 list-disc list-inside">
                 <li>Dora Siafla</li>
                 <li>Hollis Hui</li>
                 <li>Julia Guthrie</li>
