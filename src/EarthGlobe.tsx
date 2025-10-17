@@ -21,13 +21,13 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 //     return null;
 // }
 
-const soundFiles = [
-    new Audio("audio/earth.ogg"),
-    new Audio("audio/fire.ogg"),
-    new Audio("audio/metal.ogg"),
-    new Audio("audio/water.ogg"),
-    new Audio("audio/wood.ogg"),
-]
+const soundFiles = {
+    earth: new Audio("audio/earth.ogg"),
+    fire: new Audio("audio/fire.ogg"),
+    metal: new Audio("audio/metal.ogg"),
+    water: new Audio("audio/water.ogg"),
+    wood: new Audio("audio/wood.ogg"),
+} as const;
 
 const SURFACE_OFFSET = 1.02;
 const CAMERA_DISTANCE = 2;
@@ -97,6 +97,9 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         emotional,
         physical, 
         social,
+        
+        metalWoodSoundMap,
+        fireEarthWaterSoundMap,
     ] = useLoader(THREE.TextureLoader, [
         "/textures/planets/2k_earth_clouds.jpg",
         "https://pain-ix0y.onrender.com/api/bumpmap/",
@@ -104,6 +107,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         "/textures/planets/emo-crop.png",
         "/textures/planets/physical-crop.png",
         "/textures/planets/socio-eco-crop.png",
+        "/textures/planets/comp_metal-wood-crop.png",
+        "/textures/planets/comp_fire-earth-water-crop.png",
     ]);
     // const clouds = useLoader(THREE.TextureLoader, "https://pain-ix0y.onrender.com/api/cloudmap/");
     // const height = useLoader(THREE.TextureLoader, "/textures/planets/8k_height.jpg");
@@ -160,8 +165,10 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         const len = Math.sqrt(localPoint.x * localPoint.x + localPoint.y * localPoint.y + localPoint.z * localPoint.z);
         const scale = 1.02 / len; // normalize to just above surface
         const pos: [number, number, number] = [localPoint.x * scale, localPoint.y * scale, localPoint.z * scale];
-        // setBoxes(prev => [...prev, { position: pos }]);
-        playSoundAtPositionAndShowSphere(pos);
+        
+        // Get UV coordinates from the click event
+        const uv = event.uv!;
+        playSoundAtPositionAndShowSphere(pos, uv);
     }
     
     const widthHeightSegments = 32;
@@ -169,14 +176,47 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
     useEffect(() => {
         if (highlightCoords) {
             const point = coordsToVector(highlightCoords).multiplyScalar(SURFACE_OFFSET);
-            playSoundAtPositionAndShowSphere(vectorToTuple(point));
+            const vec = point.clone().normalize();
+            const u = 0.5 + Math.atan2(vec.z, vec.x) / (2 * Math.PI);
+            const v = 0.5 + Math.asin(vec.y) / Math.PI;
+            playSoundAtPositionAndShowSphere(vectorToTuple(point), new THREE.Vector2(u, v));
         }
     }, [highlightCoords]);
     
-    const playSoundAtPositionAndShowSphere = (position: [number, number, number]) => {
-            setBoxes(() => [{ position }]);
-            soundSourceSphereKey.current += 1;
-            soundFiles[Math.floor(Math.random() * soundFiles.length)].play();
+    const playSoundAtPositionAndShowSphere = (position: [number, number, number], uv: THREE.Vector2) => {
+        setBoxes(() => [{ position }]);
+        soundSourceSphereKey.current += 1;
+        
+        const metalWood: HTMLImageElement = metalWoodSoundMap.image;
+        const fireEarthWater: HTMLImageElement = fireEarthWaterSoundMap.image;
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        canvas.width = 1;
+        canvas.height = 1;
+        
+        const pixelX = Math.floor(uv.x * metalWood.width);
+        const pixelY = Math.floor((1 - uv.y) * metalWood.height);
+        
+        ctx.drawImage(metalWood, pixelX, pixelY, 1, 1, 0, 0, 1, 1);
+        const mw = ctx.getImageData(0, 0, 1, 1).data;
+        
+        ctx.drawImage(fireEarthWater, pixelX, Math.floor((1 - uv.y) * fireEarthWater.height), 1, 1, 0, 0, 1, 1);
+        const few = ctx.getImageData(0, 0, 1, 1).data;
+        
+        soundFiles.metal.volume = mw[0] / 255;
+        soundFiles.wood.volume = mw[1] / 255;
+        soundFiles.fire.volume = few[0] / 255;
+        soundFiles.earth.volume = few[1] / 255;
+        soundFiles.water.volume = few[2] / 255;
+        Object.values(soundFiles).forEach(sound => {
+            sound.currentTime = 0;
+            sound.play();
+        });
+        const volumeSum = (mw[0] + mw[1] + few[0] + few[1] + few[2]) / (255 * 5);
+        if (volumeSum === 0) {
+            soundFiles.water.volume = 0.1; // ig ocean should play a little water sound so its not too boring?
+        }
     }
 
     return (
