@@ -66,7 +66,7 @@ function App() {
       </div>
         <div className="relative overflow-hidden">
         <h2 className="text-[1.8rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h2>
-          <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}><b>Explore the Personal-Planetary-Pain (PPP) Map</b></p>
+          <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}>Explore the Personal-Planetary-Pain (PPP) Map</p>
           <EarthGlobe highlightCoords={coords} />
         </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">

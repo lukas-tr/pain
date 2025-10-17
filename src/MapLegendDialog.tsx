@@ -8,8 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { mdiArrowRightThin } from "@mdi/js";
-import Icon from "@mdi/react";
+//import { mdiArrowRightThin } from "@mdi/js";
+//import Icon from "@mdi/react";
 
 export function MapLegendDialog() {
   return (
@@ -30,7 +30,6 @@ export function MapLegendDialog() {
             <DialogClose asChild>
               <button >close</button>
             </DialogClose>
-            <button type="submit">next <Icon path={mdiArrowRightThin} size={1} /></button>
           </DialogFooter>
         </DialogContent>
       </form>
