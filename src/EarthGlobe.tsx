@@ -98,8 +98,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
     ] = useLoader(THREE.TextureLoader, [
         "/textures/planets/2k_earth_clouds.jpg",
         "https://pain-ix0y.onrender.com/api/bumpmap/",
-        // "/textures/planets/emo-map.png",
-        "/howitworks.jpg", // TODO: replace with emo map
+        "/textures/planets/emo-map.png",
         "/textures/planets/physical-map.png",
         "/textures/planets/socio-eco-map.png",
     ]);
@@ -116,6 +115,14 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         [emotional, physical, social, clouds].forEach(t => {
             t.colorSpace = THREE.SRGBColorSpace;
             t.anisotropy = 8;
+        });
+
+        // Configure PNG textures with alpha channel for iOS compatibility
+        [emotional, physical, social].forEach(t => {
+            t.format = THREE.RGBAFormat;
+            t.generateMipmaps = true;
+            t.minFilter = THREE.LinearMipmapLinearFilter;
+            t.magFilter = THREE.LinearFilter;
         });
 
         [height].forEach(t => {
@@ -174,6 +181,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     displacementBias={0.005}
                     opacity={0.3}
                     transparent
+                    alphaTest={0.01}
+                    depthWrite={false}
                 />
             </mesh>
             <mesh onClick={handleEarthClick}>
@@ -184,6 +193,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     displacementBias={0.01}
                     opacity={0.3}
                     transparent
+                    alphaTest={0.01}
+                    depthWrite={false}
                 />
             </mesh>
 
@@ -211,6 +222,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     transparent
                     opacity={0.3}
                     depthWrite={false}
+                    depthTest={true}
+                    alphaTest={0.01}
                 />
             </mesh>
 

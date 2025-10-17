@@ -19,6 +19,5 @@ const loopBackground = () => {
 }
 
 window.addEventListener("scroll", loopBackground, {passive: true});
-window.addEventListener("pointermove", loopBackground, {passive: true});
 window.addEventListener("click", loopBackground, {passive: true});
 window.addEventListener("touchstart", loopBackground, {passive: true});
