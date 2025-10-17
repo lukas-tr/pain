@@ -43,6 +43,7 @@ export function AboutDialog() {
                 Focusing on micro and macro issues, the PPP map encourages reflection on the ongoing impact of ecological and health crises, illustrating the holistic relationship between personal and planetary pain.
               </p>
               <img loading="lazy" className="max-w-[400px] m-auto" src="/traditional-chinese-medicine-types.png" alt="Wood, Fire, Earth, Metal, and Water arranged in a circle" />
+              <b></b><b></b>
               <h2 className="text-[2rem] font-[800] mb-4" style={{textAlign: "center"}} >Project Team</h2>
               <ul className="text-[1.8rem] mb-8 list-disc list-inside" style={{textAlign: "center"}}>
                 <li>Dora Siafla</li>
