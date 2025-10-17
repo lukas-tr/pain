@@ -10,6 +10,8 @@ import {
 import { mdiArrowRightThin } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useEffect, useState } from "react";
+import WordCloud from "./WordCloud";
+import ElementSelector from "./ElementSelector";
 
 interface IPainAnalysis {
   lat: number;
@@ -23,18 +25,25 @@ interface IPainAnalysis {
   source: string;
 }
 
+const FINAL_SECTION = 5;
+const TEXT_SECTION = 4;
+
 export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete?: (analysis: IPainAnalysis) => void }) {
   const [personalPainText, setPersonalPainText] = useState("");
   const [section, setSection] = useState(0);
   const [open, setOpen] = useState(false);
+  const [selectedWords, setSelectedWords] = useState<string[]>([]);
 
   useEffect(() => {
-    if (section === 3) {
+    if (section === FINAL_SECTION) {
   //     curl -X POST http://localhost:8000/locate-pain \
   // -H "Content-Type: application/json" \
   // -d '{"personal_account":"I feel a tightness in my chest when thinking about wildfires."}'
 
-
+      let text = personalPainText;
+      if (selectedWords.length > 0) {
+        text += " It feels like " + selectedWords.join(", ") + ".";
+      }
 
       fetch('https://pain-ix0y.onrender.com/api/planetary-pain', {
         method: 'POST',
@@ -42,7 +51,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          personal_account: personalPainText,
+          personal_account: text,
         }),
       }).then(async (res) => {
         setOpen(false);
@@ -77,6 +86,24 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           {section === 1 && (
             <>
               <DialogHeader>
+                <DialogTitle className=""><br></br>What element do you associate your pain with? Click on one or more.
+                <br></br> <br></br>
+</DialogTitle>
+              </DialogHeader>
+              <div className="flex-grow">
+                  <ElementSelector />
+                {/* <PointSelector
+                  width={480}
+                  height={320}
+                  initialPoint={{ x: 0.25, y: 0.75 }}
+                  onChange={p => console.log(p)}
+                /> */}
+              </div>
+            </>
+          )}
+          {section === 2 && (
+            <>
+              <DialogHeader>
                 <DialogTitle className=""><br></br>Where does the pain live in your body? Click within the blue areas
                 <br></br> <br></br>
               <img loading="lazy" src= "Human Body Diagram.jpeg" className="max-w-[90%] h-auto m-auto" />
@@ -92,7 +119,25 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
               </div>
             </>
           )}
-          {section === 2 && (
+          {section === 3 && (
+            <>
+              <DialogHeader>
+                <DialogTitle className=""><br></br>What does your pain feel like? Click all that apply.
+                  {selectedWords.length > 0 && (<>({selectedWords.length})</>)}
+</DialogTitle>
+              </DialogHeader>
+              <div className="flex-grow overflow-y-auto">
+                  <WordCloud selectedWords={selectedWords} onSetSelectedWords={setSelectedWords} />
+                {/* <PointSelector
+                  width={480}
+                  height={320}
+                  initialPoint={{ x: 0.25, y: 0.75 }}
+                  onChange={p => console.log(p)}
+                /> */}
+              </div>
+            </>
+          )}
+          {section === TEXT_SECTION && (
             <>
               <DialogHeader>
                 <DialogTitle className="">Write a personal account of your pain experience</DialogTitle>
@@ -107,22 +152,22 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
               </div>
             </>
           )}
-          {section === 3 && (
+          {section === FINAL_SECTION && (
               <div className="flex-grow text-center flex flex-col justify-center items-center gap-4 text-gray-400">
                 <h2 className="text-[2rem] pulse-opacity">sentimental-ecological analysis ...</h2>
               </div>
           )}
           <DialogFooter className="flex justify-between">
-            {section !== 3 && (
+            {section !== FINAL_SECTION && (
 
             <DialogClose asChild>
               <button onClick={() => setSection(0)}>close</button>
             </DialogClose>
             )}
-            {(section !== 0 && section !== 3) &&
+            {(section !== 0 && section !== FINAL_SECTION) &&
               <button disabled={(
-                section === 2 && personalPainText.trim().length === 0
-              )} type="submit" onClick={() => setSection((prev) => prev + 1)}>next <Icon path={mdiArrowRightThin} size={1} /></button>
+                section === TEXT_SECTION && personalPainText.trim().length === 0
+              )} type="submit" onClick={() => setSection((section) => section + 1)}>next <Icon path={mdiArrowRightThin} size={1} /></button>
             }
           </DialogFooter>
         </DialogContent>
