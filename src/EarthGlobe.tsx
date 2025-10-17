@@ -98,7 +98,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
     ] = useLoader(THREE.TextureLoader, [
         "/textures/planets/2k_earth_clouds.jpg",
         "https://pain-ix0y.onrender.com/api/bumpmap/",
-        "/textures/planets/emo-map.png",
+        // "/textures/planets/emo-map.png",
+        "/howitworks.jpg", // TODO: replace with emo map
         "/textures/planets/physical-map.png",
         "/textures/planets/socio-eco-map.png",
     ]);
@@ -222,6 +223,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                     opacity={0.1}
                     side={THREE.BackSide}
                     blending={THREE.AdditiveBlending}
+                    depthWrite={false}
                 />
             </mesh>
         </group>
