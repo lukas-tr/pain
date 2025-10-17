@@ -69,7 +69,7 @@ function App() {
           <p className="text-[1.6rem]" style={{textAlign: "center"}}><b>Explore the Personal-Planetary-Pain (PPP) Map</b></p>
           <EarthGlobe highlightCoords={coords} />
         </div>
-      <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
+      <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex print:hidden">
         <AboutDialog />
         <DataSourcesDialog />
         <MapLegendDialog />

@@ -102,7 +102,8 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         fireEarthWaterSoundMap,
     ] = useLoader(THREE.TextureLoader, [
         "/textures/planets/2k_earth_clouds.jpg",
-        "https://pain-ix0y.onrender.com/api/bumpmap/",
+        // "https://pain-ix0y.onrender.com/api/bumpmap/",
+        "/textures/planets/bump-map-crop-blurred.png",
 
         "/textures/planets/emo-crop.png",
         "/textures/planets/physical-crop.png",
@@ -171,7 +172,6 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
         playSoundAtPositionAndShowSphere(pos, uv);
     }
     
-    const widthHeightSegments = 32;
     
     useEffect(() => {
         if (highlightCoords) {
@@ -218,6 +218,9 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
             soundFiles.water.volume = 0.1; // ig ocean should play a little water sound so its not too boring?
         }
     }
+    
+    const displacementScale = -0.15;
+    const widthHeightSegments = 64;
 
     return (
         <group ref={grp}>
@@ -226,7 +229,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={emotional}
                     displacementMap={height}
-                    displacementScale={-0.2}
+                    displacementScale={displacementScale}
                     displacementBias={0}
                 />
             </mesh>
@@ -235,7 +238,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={physical}
                     displacementMap={height}
-                    displacementScale={-0.2}
+                    displacementScale={displacementScale}
                     displacementBias={0.005}
                     opacity={0.3}
                     transparent
@@ -247,7 +250,7 @@ function Earth({ highlightCoords }: { highlightCoords: [number, number] | null }
                 <sphereGeometry args={[1, widthHeightSegments, widthHeightSegments]} />
                 <meshStandardMaterial map={social}
                     displacementMap={height}
-                    displacementScale={-0.2}
+                    displacementScale={displacementScale}
                     displacementBias={0.01}
                     opacity={0.3}
                     transparent
