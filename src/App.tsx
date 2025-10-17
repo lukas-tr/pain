@@ -57,7 +57,6 @@ function App() {
 
   return (
     <>
-      <WelcomeSection />
       <div className="card">
         {
           coords && analysisResult && (
