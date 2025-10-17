@@ -65,8 +65,7 @@ function App() {
   </Canvas> */}
       </div>
         <div className="relative overflow-hidden">
-      <b></b><b></b><b></b>
-        <h2 className="text-[1.8rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h2>
+        <h2 className="text-[2rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>P.A.I.N</strong> <b>is PERSONAL AND INTERCONNECTED with NATURE</b></h2>
           <p className="text-[1.7rem]" style={{textAlign: "center"}}><b>Explore the Personal-Planetary-Pain (PPP) Map</b></p>
           <EarthGlobe highlightCoords={coords} />
         </div>
