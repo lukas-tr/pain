@@ -25,7 +25,7 @@ export function AboutDialog() {
             <DialogHeader> <DialogTitle className="text-[2.2rem]"><strong> ABOUT THE PPP MAP </strong></DialogTitle> </DialogHeader>
             <div className="flex-grow overflow-y-auto">
               <p className="text-[1.8rem] mb-8">
-                <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" style={{textAlign: "center"}}/>
+                <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" className="center"/>
                 <strong> PPP (Personal–Planetary–Pain) </strong>is an interactive map that explores the interconnectedness of ecological loss, socioeconomic suffering, and the human pain experience.
                 When the Earth is in pain, we are in pain.
                 Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
