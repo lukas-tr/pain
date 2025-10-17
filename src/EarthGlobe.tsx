@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useLoader, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
 // texture source: https://www.solarsystemscope.com/textures/
@@ -371,6 +371,58 @@ function CameraFocus({ highlightCoords, controlsRef }: { highlightCoords: [numbe
 export default function EarthScene({ highlightCoords }: { highlightCoords: [number, number] | null }) {
     const key = useRef(0);
     const controlsRef = useRef<OrbitControlsImpl | null>(null);
+    const [isAutoRotateEnabled, setIsAutoRotateEnabled] = useState(true);
+    const idleTimeoutRef = useRef<number | null>(null);
+
+    const clearIdleTimeout = useCallback(() => {
+        if (idleTimeoutRef.current !== null) {
+            window.clearTimeout(idleTimeoutRef.current);
+            idleTimeoutRef.current = null;
+        }
+    }, []);
+
+    const enableAutoRotate = useCallback(() => {
+        const controls = controlsRef.current;
+        if (!controls) {
+            return;
+        }
+
+        controls.autoRotate = true;
+        controls.update();
+        setIsAutoRotateEnabled(true);
+    }, []);
+
+    const disableAutoRotate = useCallback(() => {
+        clearIdleTimeout();
+        const controls = controlsRef.current;
+        if (!controls) {
+            return;
+        }
+
+        controls.autoRotate = false;
+        controls.update();
+        setIsAutoRotateEnabled(false);
+    }, [clearIdleTimeout]);
+
+    const handleControlsEnd = useCallback(() => {
+        clearIdleTimeout();
+        idleTimeoutRef.current = window.setTimeout(() => {
+            enableAutoRotate();
+        }, 5000);
+    }, [clearIdleTimeout, enableAutoRotate]);
+
+    useEffect(() => {
+        const controls = controlsRef.current;
+        if (!controls) {
+            return;
+        }
+
+        controls.autoRotate = isAutoRotateEnabled;
+    }, [isAutoRotateEnabled]);
+
+    useEffect(() => () => {
+        clearIdleTimeout();
+    }, [clearIdleTimeout]);
 
     useEffect(() => {
         key.current = Math.random(); // needed to force remount during hmr
@@ -389,6 +441,10 @@ export default function EarthScene({ highlightCoords }: { highlightCoords: [numb
                 dampingFactor={0.02}
                 minDistance={CAMERA_DISTANCE - 0.4}
                 maxDistance={8}
+                autoRotate={isAutoRotateEnabled}
+                autoRotateSpeed={0.2}
+                onStart={disableAutoRotate}
+                onEnd={handleControlsEnd}
             />
             <CameraFocus highlightCoords={highlightCoords} controlsRef={controlsRef} />
             <Earth highlightCoords={highlightCoords} />
