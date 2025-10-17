@@ -5,6 +5,7 @@ import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
 import { useState } from 'react';
 import SharedPainCard from './SharedPainCard';
+import MapLegendDialog from './MapLegendDialog'
 
 function Legend() {
   return (
@@ -71,6 +72,7 @@ function App() {
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
         <DataSourcesDialog />
+        <MapLegendDialog />
         <div className="flex-grow"></div>
         <ShareYourPainDialog onAnalysisComplete={(analysis) => {
           setAnalysisResult(analysis.planetary_view);
