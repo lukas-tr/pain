@@ -68,7 +68,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             <>
               <div className="flex-grow text-center flex flex-col justify-center items-center gap-4">
                    <h2 className="text-[1.8rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>SHARE YOUR PAIN</strong></h2>
-                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> we will locate your pain on the planet's body</p>
+                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> <b>we will locate your pain on the planet's body</b></p>
                 <br></br>
                 <button onClick={() => setSection(1)}>Continue</button>
               </div>
@@ -77,7 +77,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           {section === 1 && (
             <>
               <DialogHeader>
-                <DialogTitle className=""><br></br>Where does the pain live in your body? Click within the blue areas
+                <DialogTitle className=""><br></br><b>Where does the pain live in your body? Click within the blue areas</b>
                 <br></br> <br></br>
               <img loading="lazy" src= "Human Body Diagram.jpeg" className="max-w-150 m-auto max-w-[100%]" />
 </DialogTitle>
