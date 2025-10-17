@@ -1,7 +1,5 @@
 import './App.css'
 import EarthGlobe from './EarthGlobe'
-import Icon from '@mdi/react';
-import { mdiMouseScrollWheel } from '@mdi/js';
 import ShareYourPainDialog from './ShareYourPainDialog'
 import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
@@ -89,7 +87,6 @@ function App() {
         <DataSourcesDialog />
         <div className="flex-grow"></div>
         <ShareYourPainDialog onAnalysisComplete={(analysis) => {
-          // TODO: show this text
           setAnalysisResult(analysis.planetary_view);
           // TODO: highlight this coordinate
           setCoords([analysis.lat, analysis.lon]);
