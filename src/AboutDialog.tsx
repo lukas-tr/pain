@@ -45,7 +45,7 @@ export function AboutDialog() {
               <img loading="lazy" className="max-w-[400px] m-auto" src="/traditional-chinese-medicine-types.png" alt="Wood, Fire, Earth, Metal, and Water arranged in a circle" />
               <b></b><b></b><b></b><b></b>
               <h2 className="text-[2rem] font-[800] mb-4" >Project Team</h2>
-              <ul className="text-[1.8rem] mb-8 list-disc list-inside">
+              <ul className="text-[1.6rem] mb-8 list-disc list-inside">
                 <li>Dora Siafla</li>
                 <li>Hollis Hui</li>
                 <li>Julia Guthrie</li>
