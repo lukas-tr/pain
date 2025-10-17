@@ -80,7 +80,6 @@ function App() {
           <p className="m-2"><b>(click anywhere on the map)</b></p>
           <EarthGlobe highlightCoords={coords} />
          <Legend />
-    
         </div>
       <div className="fixed bottom-4 gap-2 right-[0.5rem] w-[calc(100%-1rem)] flex">
         <AboutDialog />
