@@ -86,7 +86,7 @@ function App() {
         <div className="relative overflow-hidden">
           <EarthGlobe />
            <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
-        <p className="m-2">(click anywhere on the map)</p>
+           <p className="m-2">(click anywhere on the map)</p>
          <Legend />
     
         </div>
