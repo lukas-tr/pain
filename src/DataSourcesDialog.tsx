@@ -35,7 +35,6 @@ export function DataSourcesDialog() {
             <DialogClose asChild>
               <button >close</button>
             </DialogClose>
-            <button type="submit">next <Icon path={mdiArrowRightThin} size={1} /></button>
           </DialogFooter>
         </DialogContent>
       </form>
