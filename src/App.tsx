@@ -73,9 +73,6 @@ function App() {
   </Canvas> */}
       </div>
         <div className="relative overflow-hidden">
-           <strong> P.A.I.N is PERSONAL AND INTERCONNECTED with NATURE</strong>
-               <br />
-              <p>P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects.</p> 
           <h2 className="text-[1.8rem] m-2"><strong>EXPLORE PERSONAL-PLANETARY-PAIN (PPP)</strong></h2>
           <p className="m-2"><b>(click anywhere on the map)</b></p>
           <EarthGlobe highlightCoords={coords} />
