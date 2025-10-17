@@ -26,9 +26,6 @@ export function AboutDialog() {
             <div className="flex-grow overflow-y-auto">
               <p className="text-[1.8rem] mb-8">
                 <img loading="lazy" src="/pain.png" width={550} height={300} alt="P.A.I.N. logo" />
-               <strong> P.A.I.N is PERSONAL AND INTERCONNECTED with NATURE</strong>
-               <br> </br>
-               P.A.I.N is a research investigatory project exploring the Earth's pain and its ripple effects. The project provides a holistic perspective on pain through personal, physical, emotional, ecological, socioeconomic, political, collective, and interconnected aspects.
                 <strong> PPP (Personal–Planetary–Pain) </strong>is an interactive map that explores the interconnectedness of ecological loss, socioeconomic suffering, and the human pain experience.
                 When the Earth is in pain, we are in pain.
                 Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
