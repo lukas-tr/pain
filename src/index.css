@@ -127,6 +127,12 @@ button {
   align-items: center;
   padding: 12px;
   font-size: 1.4rem;
+  cursor: pointer;
+}
+button.active {
+  background-color: white;
+  color: var(--fg-primary);
+  outline: 1px solid var(--fg-primary);
 }
 
 button:disabled {
