@@ -82,18 +82,21 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
         const resVal: IPainAnalysis = await res.json();
         onAnalysisComplete?.(resVal);
       }).catch((err) => {
-        setOpen(false);
         console.error(err);
-        // return something random so it works offline
-        onAnalysisComplete?.({
-          lat: parseFloat((Math.random() * 180 - 90).toFixed(6)),
-          lon: parseFloat((Math.random() * 360 - 180).toFixed(6)),
-          planetary_view: randomViews[Math.floor(Math.random() * randomViews.length)],
-          bumpmap_url: "",
-          deterministic_seed: "",
-          model: "",
-          source: "",
-        });
+        // simulate server delay
+        setTimeout(() => {
+          setOpen(false);
+          // return something random so it works offline
+          onAnalysisComplete?.({
+            lat: parseFloat((Math.random() * 180 - 90).toFixed(6)),
+            lon: parseFloat((Math.random() * 360 - 180).toFixed(6)),
+            planetary_view: randomViews[Math.floor(Math.random() * randomViews.length)],
+            bumpmap_url: "",
+            deterministic_seed: "",
+            model: "",
+            source: "",
+          });
+        }, 1000);
       });
     }
   }, [section]);
@@ -187,12 +190,9 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
               </div>
           )}
           <DialogFooter className="flex justify-between">
-            {section !== FINAL_SECTION && (
-
             <DialogClose asChild>
               <button onClick={() => setSection(0)}>close</button>
             </DialogClose>
-            )}
             {(section !== 0 && section !== FINAL_SECTION) &&
               <button disabled={(
                 section === TEXT_SECTION && personalPainText.trim().length === 0
