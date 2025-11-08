@@ -49,6 +49,14 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [selectedElements, setSelectedElements] = useState<string[]>([]);
   const [selectedBodyParts, setSelectedBodyParts] = useState<string[]>([]);
+  
+  const resetForm = () => {
+    setPersonalPainText("");
+    setSection(0);
+    setSelectedWords([]);
+    setSelectedElements([]);
+    setSelectedBodyParts([]);
+  }
 
   useEffect(() => {
     if (section === FINAL_SECTION) {
@@ -81,6 +89,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
         }
         const resVal: IPainAnalysis = await res.json();
         onAnalysisComplete?.(resVal);
+        resetForm();
       }).catch((err) => {
         console.error(err);
         // simulate server delay
@@ -96,6 +105,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             model: "",
             source: "",
           });
+          resetForm();
         }, 1000);
       });
     }
