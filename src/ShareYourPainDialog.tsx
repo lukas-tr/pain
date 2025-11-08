@@ -14,6 +14,14 @@ import WordCloud from "./WordCloud";
 import ElementSelector from "./ElementSelector";
 import BodyPartSelector from "./BodyPartSelector";
 
+const randomViews = [
+  "The shadow that settles in your lungs is not yours alone. It is the resonance of a choked atmosphere, a planet's grief made manifest in the hazy air. This systemic constriction is known to the Metal element, which governs both the breath that catches in your chest and the weeping of the sky. When Metal is imbalanced, its *Qi* stagnates, turning the clear, righteous edge of autumn into a dull ache of persistent sorrow. You feel it as a weight, a difficulty in drawing a full, clean breath. The Earth feels it as smog, as the fine, toxic dust of its own bones settling over everything, a planetary *Po* (corporeal soul) burdened by a grief it cannot exhale.\n#SharedPain #MetalElement #StagnantQi #Solastalgia #Grief #Smog #Depression",
+  "That rising tremor, the heat that coils in your center and tightens your sinews, is not an isolated event. The Earth’s own meridians are blocked, its Wood element turned brittle and sharp. The planet's Liver *Qi*—meant to flow freely, to plan, to grow—is suppressed by concrete, by greed, by the raw wound of deforestation. This stagnation erupts as fire, as rage, as injustice. You feel it as a surge of anger, a frustration that has no clear source, a tension in your muscles. The planet screams it in the form of forest fires, in the acidic toxicity that poisons the soil, a shared, sympathetic resonance of a spirit that can no longer bend, only break.\n#WoodElement #Anger #Injustice #Toxicity #ForestFire #QiStagnation #CorporateGreed",
+  "Your frantic pulse, the restless heat that disturbs your sleep, finds its rhythm in the land. This is a profound Yin deficiency, a systemic exhaustion of the planet's cooling waters. The ice caps, the deep aquifers, the quiet lakes—all are receding, failing to anchor the rampant Yang of a world burning too bright. The Heart *Shen* (spirit) has no place to rest, for either of you. It floats unanchored, manifesting as anxiety, as a low-grade panic, as a heart-fire that cannot be soothed. The Earth mirrors this with its rising fever, its erratic storms, and the frantic, unending pace of extraction that consumes its own substance in a fit of sleepless dread.\n#YinYang #HeartFire #Anxiety #Panic #Solastalgia #War #SharedFever",
+  "That cold dread that settles deep in your bones, a profound exhaustion that willpower cannot touch... the planet knows this well. The flow of the Water element is heavy, turgid, filtering a shared and pervasive toxicity. This is the domain of the Kidneys, the storehouse of our deepest essence and the seat of our will, now steeped in fear. You feel it as existential dread, as deep depression, as the impulse to retreat when there is nowhere left to go. The Earth holds this same cold fear in its poisoned depths, in the plastic-choked oceans and the silent, spreading death of its reefs. The planet's *Jing*, its foundational essence, is draining away, and you are both left feeling depleted, cold, and afraid of the dark.\n#WaterElement #SharedFear #DeepAche #Toxicity #Depression #KidneyQi #Exhaustion",
+  "That hollow feeling in your center, the systemic worry that weakens your core and makes every thought feel damp and heavy... it radiates from the soil itself. The Spleen *Qi*, which governs the transformation of nourishment into life, is deficient. It is overburdened by a deluge it cannot process. You feel this as a constant worry, a 'dampness' that fogs the mind, an emptiness that no amount of consumption can fill. The Earth, our great 'mother' element, shares this depletion. Its own Spleen is weakened by monocultures, by floods, by systemic poverty. The land is unable to transform, unable to nourish. We are bound in a shared blockage, a mutual, aching hunger for sustenance that is both physical and spiritual.\n#EarthElement #DeficientQi #SharedWorry #Depletion #Hunger #Poverty #Dampness"
+]
+
 interface IPainAnalysis {
   lat: number;
   lon: number;
@@ -68,7 +76,20 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
         }
         const resVal: IPainAnalysis = await res.json();
         onAnalysisComplete?.(resVal);
-      })
+      }).catch((err) => {
+        setOpen(false);
+        console.error(err);
+        // return something random so it works offline
+        onAnalysisComplete?.({
+          lat: Math.random() * 180 - 90,
+          lon: Math.random() * 360 - 180,
+          planetary_view: randomViews[Math.floor(Math.random() * randomViews.length)],
+          bumpmap_url: "",
+          deterministic_seed: "",
+          model: "",
+          source: "",
+        });
+      });
     }
   }, [section]);
 
