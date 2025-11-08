@@ -86,8 +86,8 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
         console.error(err);
         // return something random so it works offline
         onAnalysisComplete?.({
-          lat: Math.random() * 180 - 90,
-          lon: Math.random() * 360 - 180,
+          lat: parseFloat((Math.random() * 180 - 90).toFixed(6)),
+          lon: parseFloat((Math.random() * 360 - 180).toFixed(6)),
           planetary_view: randomViews[Math.floor(Math.random() * randomViews.length)],
           bumpmap_url: "",
           deterministic_seed: "",
