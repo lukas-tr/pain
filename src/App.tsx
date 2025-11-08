@@ -78,6 +78,8 @@ function App() {
           setAnalysisResult(analysis.planetary_view);
           // TODO: highlight this coordinate
           setCoords([analysis.lat, analysis.lon]);
+          // Scroll to the top when analysis is completed
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }} />
       </div>
     </>
