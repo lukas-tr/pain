@@ -32,14 +32,8 @@ export function AboutDialog() {
                 Through the concept of "phantom scars,” the Earth’s pain is illustrated by craters on the map that are sonified by their type of destruction. Using the principles of Traditional Chinese Medicine (TCM), PPP links human and environmental pain to imbalances in the five elements—Wood, Fire, Earth, Metal, and Water.
                 Users are invited to share their own narratives of pain, which become part of a growing collective memory tied to sites of ecological distress around the world.
                 By weaving together the personal and the planetary, the PPP map highlights both micro and macro crises, encouraging reflection on how ecological and health challenges leave lasting, interconnected imprints.
-
               </p>
-              <p className="text-[1.6rem] mb-8">
-                Users share their personal narratives of pain, adding depth to the collective and lingering pain corresponding to environmental distress in different countries. 
-                Drawing from the principles of Traditional Chinese Medicine (TCM), the map highlights how human pain is interconnected with environmental pain through the five elements—Wood, Fire, Earth, Metal, and Water.
-                Focusing on micro and macro issues, the PPP map encourages reflection on the ongoing impact of ecological and health crises, illustrating the holistic relationship between personal and planetary pain.
-              </p>
-              <img loading="lazy" className="max-w-[400px] m-auto" src="/traditional-chinese-medicine-types.png" alt="Wood, Fire, Earth, Metal, and Water arranged in a circle" />
+              
               <b></b><b></b><b></b><b></b>
               <h2 className="text-[2rem] font-[800] mb-4" >Project Team</h2>
               <ul className="text-[1.6rem] mb-8 list-disc list-inside">
