@@ -33,7 +33,7 @@ export function AboutDialog() {
                 Users are invited to share their own narratives of pain, which become part of a growing collective memory tied to sites of ecological distress around the world.
                 By weaving together the personal and the planetary, the PPP map highlights both micro and macro crises, encouraging reflection on how ecological and health challenges leave lasting, interconnected imprints.
               </p>
-              
+  
               <b></b><b></b><b></b><b></b>
               <h2 className="text-[2rem] font-[800] mb-4" >Project Team</h2>
               <ul className="text-[1.6rem] mb-8 list-disc list-inside">
