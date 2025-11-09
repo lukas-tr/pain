@@ -14,6 +14,19 @@ import WordCloud from "./WordCloud";
 import ElementSelector from "./ElementSelector";
 import BodyPartSelector from "./BodyPartSelector";
 
+const randomViews = [
+  "The shadow that settles in your lungs is not yours alone. It is the resonance of a choked atmosphere, a planet's grief made manifest in the hazy air. This systemic constriction is known to the Metal element, which governs both the breath that catches in your chest and the weeping of the sky. When Metal is imbalanced, its *Qi* stagnates, turning the clear, righteous edge of autumn into a dull ache of persistent sorrow. You feel it as a weight, a difficulty in drawing a full, clean breath. The Earth feels it as smog, as the fine, toxic dust of its own bones settling over everything, a planetary *Po* (corporeal soul) burdened by a grief it cannot exhale.\n#SharedPain #MetalElement #StagnantQi #Solastalgia #Grief #Smog #Depression",
+  "That rising tremor, the heat that coils in your center and tightens your sinews, is not an isolated event. The Earth’s own meridians are blocked, its Wood element turned brittle and sharp. The planet's Liver *Qi*—meant to flow freely, to plan, to grow—is suppressed by concrete, by greed, by the raw wound of deforestation. This stagnation erupts as fire, as rage, as injustice. You feel it as a surge of anger, a frustration that has no clear source, a tension in your muscles. The planet screams it in the form of forest fires, in the acidic toxicity that poisons the soil, a shared, sympathetic resonance of a spirit that can no longer bend, only break.\n#WoodElement #Anger #Injustice #Toxicity #ForestFire #QiStagnation #CorporateGreed",
+  "Your frantic pulse, the restless heat that disturbs your sleep, finds its rhythm in the land. This is a profound Yin deficiency, a systemic exhaustion of the planet's cooling waters. The ice caps, the deep aquifers, the quiet lakes—all are receding, failing to anchor the rampant Yang of a world burning too bright. The Heart *Shen* (spirit) has no place to rest, for either of you. It floats unanchored, manifesting as anxiety, as a low-grade panic, as a heart-fire that cannot be soothed. The Earth mirrors this with its rising fever, its erratic storms, and the frantic, unending pace of extraction that consumes its own substance in a fit of sleepless dread.\n#YinYang #HeartFire #Anxiety #Panic #Solastalgia #War #SharedFever",
+  "That cold dread that settles deep in your bones, a profound exhaustion that willpower cannot touch... the planet knows this well. The flow of the Water element is heavy, turgid, filtering a shared and pervasive toxicity. This is the domain of the Kidneys, the storehouse of our deepest essence and the seat of our will, now steeped in fear. You feel it as existential dread, as deep depression, as the impulse to retreat when there is nowhere left to go. The Earth holds this same cold fear in its poisoned depths, in the plastic-choked oceans and the silent, spreading death of its reefs. The planet's *Jing*, its foundational essence, is draining away, and you are both left feeling depleted, cold, and afraid of the dark.\n#WaterElement #SharedFear #DeepAche #Toxicity #Depression #KidneyQi #Exhaustion",
+  "That hollow feeling in your center, the systemic worry that weakens your core and makes every thought feel damp and heavy... it radiates from the soil itself. The Spleen *Qi*, which governs the transformation of nourishment into life, is deficient. It is overburdened by a deluge it cannot process. You feel this as a constant worry, a 'dampness' that fogs the mind, an emptiness that no amount of consumption can fill. The Earth, our great 'mother' element, shares this depletion. Its own Spleen is weakened by monocultures, by floods, by systemic poverty. The land is unable to transform, unable to nourish. We are bound in a shared blockage, a mutual, aching hunger for sustenance that is both physical and spiritual.\n#EarthElement #DeficientQi #SharedWorry #Depletion #Hunger #Poverty #Dampness",
+  "The dissonance you feel, the joyless, frantic pace that burns your nerves... this is not yours alone. It is an imbalance in the Fire element, a *Shen* (spirit) that has lost its anchor and flutters like a flame in a violent wind. The planet mirrors this erratic mania, this ungrounded heat. You feel it as a racing heart, a sleepless anxiety, the hollow echo of connection lost. The Earth manifests it as erupting violence, as the fever of war, as a climate that no longer knows the gentle warmth of true summer, only the scorching, desperate blaze of a Heart out of balance, consumed by its own destructive pulse.\n#FireElement #SharedMania #Anxiety #War #Eruption #ShenDisturbance #HeartFire",
+  "That sense of being untethered, of wandering without purpose, the cyclical worry that dampens your spirit... this is the Earth's ache, too. The planet’s Spleen *Qi* is injured, its ability to nourish and hold is compromised by floods that wash away the soil and by the persistent hunger of poverty. This is the 'dampness' of a system that cannot transform, that ruminates on its own trauma. You feel it as mental fog, as digestive trouble, as a body that feels heavy and weary. The Earth expresses it through exhausted, depleted lands and the chronic instability of a world that has lost its nurturing center.\n#EarthElement #DeficientQi #Worry #Poverty #Floods #Dampness #Hunger",
+  "The barrier you feel, the profound sense of isolation and the stifled air... this is a shared condition. The Metal element, which governs boundaries and the righteous exchange with the world, is in crisis. Its energy is brittle, corrupted by the smog of injustice and the systemic toxicity of racism. Our collective *Wei Qi* (Defensive Qi) is compromised, leaving us vulnerable. You feel it as a persistent cough, a vulnerability to disease, a deep-seated grief that constricts the chest. The planet feels it as a poisoned atmosphere, as species that can no longer breathe, as a failure of the sacred boundary between the self and the other.\n#MetalElement #Grief #Injustice #Smog #Disease #Racism #WeiQi #SharedPain",
+  "That deep, primal terror, the cold that seeps into your will and whispers of endings... the planet shudders with this same frequency. The very root of life, the Water element, is flooded with fear. The *Jing*, our ancestral essence stored in the Kidneys, is being depleted by a world that demands too much and offers too little rest. You feel this as bone-deep exhaustion, as existential dread, as the impulse to dissolve. The Earth knows this as the overwhelming force of tsunamis, as the irreversible melting of its ancient ice, and as the creeping, final toxicity that pollutes the very source from which all life springs. \n#WaterElement #Fear #Dread #Tsunami #Toxicity #Jing #Exhaustion #Suicide",
+  "The rigid tension in your shoulders, the frustration that boils under your skin, the feeling of being trapped... this is the stagnation of the planet's own vital force. The Wood element, meant to surge upward with creativity and vision, is repressed. It is caged by the unyielding structures of corporate greed, its path blocked by injustice. This suppressed Liver *Qi* must move. You feel it as migraines, as sharp pains, as sudden fits of rage. The Earth explodes with it in the form of earthquakes, in the sudden, violent release of pressure, a planetary system screaming for the freedom to grow, a shared ache for a spring that is endlessly, violently deferred.\n#WoodElement #StagnantQi #Anger #Injustice #CorporateGreed #Earthquake #Depression",
+]
+
 interface IPainAnalysis {
   lat: number;
   lon: number;
@@ -36,6 +49,14 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [selectedElements, setSelectedElements] = useState<string[]>([]);
   const [selectedBodyParts, setSelectedBodyParts] = useState<string[]>([]);
+  
+  const resetForm = () => {
+    setPersonalPainText("");
+    setSection(0);
+    setSelectedWords([]);
+    setSelectedElements([]);
+    setSelectedBodyParts([]);
+  }
 
   useEffect(() => {
     if (section === FINAL_SECTION) {
@@ -68,7 +89,25 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
         }
         const resVal: IPainAnalysis = await res.json();
         onAnalysisComplete?.(resVal);
-      })
+        resetForm();
+      }).catch((err) => {
+        console.error(err);
+        // simulate server delay
+        setTimeout(() => {
+          setOpen(false);
+          // return something random so it works offline
+          onAnalysisComplete?.({
+            lat: parseFloat((Math.random() * 180 - 90).toFixed(6)),
+            lon: parseFloat((Math.random() * 360 - 180).toFixed(6)),
+            planetary_view: randomViews[Math.floor(Math.random() * randomViews.length)],
+            bumpmap_url: "",
+            deterministic_seed: "",
+            model: "",
+            source: "",
+          });
+          resetForm();
+        }, 1000);
+      });
     }
   }, [section]);
 
@@ -161,12 +200,9 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
               </div>
           )}
           <DialogFooter className="flex justify-between">
-            {section !== FINAL_SECTION && (
-
             <DialogClose asChild>
               <button onClick={() => setSection(0)}>close</button>
             </DialogClose>
-            )}
             {(section !== 0 && section !== FINAL_SECTION) &&
               <button disabled={(
                 section === TEXT_SECTION && personalPainText.trim().length === 0
