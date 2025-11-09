@@ -10,6 +10,7 @@ import {
 import { mdiArrowRightThin } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useEffect, useState } from "react";
+import { htmlToPlainText } from "./lib/utils";
 import WordCloud from "./WordCloud";
 import ElementSelector from "./ElementSelector";
 import BodyPartSelector from "./BodyPartSelector";
@@ -121,7 +122,8 @@ export function ShareYourPainDialog({ onAnalysisComplete, onCommonPainComplete, 
           }
           const resVal: { common_pain_story?: string } = await res.json();
           if (resVal.common_pain_story) {
-            onCommonPainComplete?.(resVal.common_pain_story, firstPerson, input);
+            const plain = htmlToPlainText(resVal.common_pain_story);
+            onCommonPainComplete?.(plain, firstPerson, input);
           }
           resetForm();
         }).catch((err) => {
