@@ -7,7 +7,7 @@ interface SharedPainCardProps {
     children?: React.ReactNode; // second dialog instance
 }
 
-function SharedPainCard({ coords, analysisResult, firstPersonInput, sharedStory, children }: SharedPainCardProps) {
+function SharedPainCard({ coords, analysisResult, sharedStory, children }: SharedPainCardProps) {
     return (
         <div className="legend bg-white">
             <h2 className="text-lg">{sharedStory ? 'COMMON PAIN STORY' : 'YOUR PAIN IS SHARED HERE'}</h2>
