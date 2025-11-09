@@ -39,10 +39,29 @@ interface IPainAnalysis {
   source: string;
 }
 
+export interface IPainInput {
+  personal_account: string;
+  elements: string[];
+  feelings: string[];
+}
+
 const FINAL_SECTION = 5;
 const TEXT_SECTION = 4;
 
-export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete?: (analysis: IPainAnalysis) => void }) {
+type ShareYourPainDialogProps = {
+  // first step: locate pain on planet and return coords + planetary_view
+  onAnalysisComplete?: (analysis: IPainAnalysis, input: IPainInput) => void;
+  // second step: create common/shared story using first + second inputs
+  onCommonPainComplete?: (story: string, firstInput: IPainInput, secondInput: IPainInput) => void;
+  // whether this dialog is used for the first or the second submission
+  variant?: "first" | "second";
+  // pass the first person's input when variant === 'second'
+  firstPerson?: IPainInput | null;
+  // optional custom trigger text
+  triggerLabel?: string;
+};
+
+export function ShareYourPainDialog({ onAnalysisComplete, onCommonPainComplete, variant = "first", firstPerson, triggerLabel }: ShareYourPainDialogProps) {
   const [personalPainText, setPersonalPainText] = useState("");
   const [section, setSection] = useState(0);
   const [open, setOpen] = useState(false);
@@ -71,7 +90,54 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
       if (selectedElements.length > 0) {
         text += " I associate this pain with the elements: " + selectedElements.join(", ") + ".";
       }
+      
+      const input: IPainInput = {
+        personal_account: text,
+        elements: selectedElements,
+        feelings: selectedWords,
+      };
 
+      // If this is the second submission, create a shared/common pain story
+      if (variant === "second" && firstPerson) {
+        fetch('https://pain-7f17fa7b9094.herokuapp.com/api/common-pain-story', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            personal_account_1: firstPerson.personal_account,
+            elements_1: firstPerson.elements,
+            feelings_1: firstPerson.feelings,
+            personal_account_2: input.personal_account,
+            elements_2: input.elements,
+            feelings_2: input.feelings,
+          }),
+        }).then(async (res) => {
+          setOpen(false);
+          if (!res.ok) {
+            console.log(await res.text());
+            alert("An error occured while submitting the shared pain");
+            return;
+          }
+          const resVal: { common_pain_story?: string } = await res.json();
+          if (resVal.common_pain_story) {
+            onCommonPainComplete?.(resVal.common_pain_story, firstPerson, input);
+          }
+          resetForm();
+        }).catch((err) => {
+          console.error(err);
+          // Fallback: generate a combined random narrative offline
+          setTimeout(() => {
+            setOpen(false);
+            const fallback = randomViews[Math.floor(Math.random() * randomViews.length)];
+            onCommonPainComplete?.(fallback, firstPerson, input);
+            resetForm();
+          }, 800);
+        });
+        return;
+      }
+
+      // Default (first submission): locate pain and get planetary view
       fetch('https://pain-ix0y.onrender.com/api/planetary-pain', {
         method: 'POST',
         headers: {
@@ -88,7 +154,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
           return;
         }
         const resVal: IPainAnalysis = await res.json();
-        onAnalysisComplete?.(resVal);
+        onAnalysisComplete?.(resVal, input);
         resetForm();
       }).catch((err) => {
         console.error(err);
@@ -104,7 +170,7 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
             deterministic_seed: "",
             model: "",
             source: "",
-          });
+          }, input);
           resetForm();
         }, 1000);
       });
@@ -115,14 +181,21 @@ export function ShareYourPainDialog({ onAnalysisComplete }: { onAnalysisComplete
     <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
-          <button onClick={() => setSection(0)} >Share Your Pain</button>
+          <button onClick={() => setSection(0)} >{triggerLabel ?? (variant === 'second' ? 'Add second person\'s pain' : 'Share Your Pain')}</button>
         </DialogTrigger>
         <DialogContent className="">
           {section === 0 && (
             <>
               <div className="flex-grow text-center flex flex-col justify-center items-center gap-4">
                    <h2 className="text-[1.8rem] m-2" style={{textAlign: "center"}}>  ⁠<strong>SHARE YOUR PAIN</strong></h2>
-                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> <b>we will locate your pain on the planet's body</b></p>
+                <p className="text-[1.8rem] m-2" style={{textAlign: "center"}}> 
+                  <b>
+                  {variant === 'first' ?
+                    'we will locate your pain on the planet\'s body'
+                    :
+                    'find a second person and encourage them to share their pain as well'
+                  }
+                  </b></p>
                 <br></br>
                 <button onClick={() => setSection(1)}>Continue</button>
               </div>

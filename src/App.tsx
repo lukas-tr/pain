@@ -1,6 +1,6 @@
 import './App.css'
 import EarthGlobe from './EarthGlobe'
-import ShareYourPainDialog from './ShareYourPainDialog'
+import ShareYourPainDialog, { type IPainInput } from './ShareYourPainDialog'
 import AboutDialog from './AboutDialog'
 import DataSourcesDialog from './DataSourcesDialog'
 import { useState } from 'react';
@@ -47,15 +47,48 @@ function App() {
 
   const [analysisResult, setAnalysisResult] = useState("")
   const [coords, setCoords] = useState<[number, number] | null>(null);
+  const [firstPersonPainInput, setFirstPersonPainInput] = useState<IPainInput | null>(null);
+  const [sharedStory, setSharedStory] = useState<string | null>(null);
 
   return (
     <>
       <div className="card">
-        {
-          coords && analysisResult && (
-            <SharedPainCard coords={coords} analysisResult={analysisResult} />
-          )
-        }
+        {coords && analysisResult && (
+          <SharedPainCard
+            coords={coords}
+            analysisResult={analysisResult}
+            firstPersonInput={firstPersonPainInput}
+            sharedStory={sharedStory}
+          >
+            {firstPersonPainInput && !sharedStory && (
+              <ShareYourPainDialog
+                variant="second"
+                firstPerson={firstPersonPainInput}
+                triggerLabel="Create common pain story"
+                onCommonPainComplete={(story) => {
+                  setSharedStory(story);
+                  // Keep the same coords highlight; scroll to top for visibility
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  // alter coordinates slightly so the earth scrolls again
+                  setCoords([coords[0] + 0.0001, coords[1] + 0.0001]);
+                }}
+              />
+            )}
+            {firstPersonPainInput && sharedStory && (
+            <button
+              className="text-sm"
+              onClick={() => {
+                setAnalysisResult("");
+                setCoords(null);
+                setFirstPersonPainInput(null);
+                setSharedStory(null);
+              }}
+            >
+              Start Over
+            </button>
+            )}
+          </SharedPainCard>
+        )}
         {/* <Canvas>
     <ambientLight intensity={Math.PI / 2} />
     <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
@@ -74,12 +107,14 @@ function App() {
         <DataSourcesDialog />
         <MapLegendDialog />
         <div className="flex-grow"></div>
-        <ShareYourPainDialog onAnalysisComplete={(analysis) => {
+        <ShareYourPainDialog onAnalysisComplete={(analysis, painInput) => {
           setAnalysisResult(analysis.planetary_view);
           // TODO: highlight this coordinate
           setCoords([analysis.lat, analysis.lon]);
           // Scroll to the top when analysis is completed
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          setFirstPersonPainInput(painInput);
+          setSharedStory(null); // reset any previous common story for a fresh flow
         }} />
       </div>
     </>
